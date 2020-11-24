@@ -42,7 +42,6 @@ const dragAndDrop = () => {
 
     const afterElement = getDragAfterElement(container, e.clientY);
     const draggable = document.querySelector(".dragging");
-    //console.log(afterElement);
     container.appendChild(draggable);
     if (afterElement == null) {
       container.appendChild(draggable);
@@ -154,10 +153,7 @@ const app = () => {
           stops[i].stopCode === "01" &&
           stops[i].zoneId === 1
         ) {
-          // console.log(stops[i].stopId);
-
           let ID = stops[i].stopId;
-
           let dataArr = [ID, stops[i].stopName];
           return dataArr;
         }
@@ -181,19 +177,12 @@ const app = () => {
       let routeIds = [];
       let headsigns = [];
       for (let i = 0; i < delay.length; i++) {
-        // if (delay[i].routeId[0] === "4") {
-        //   delay[i].routeId[0] === "N";
-        // }
-
         times.push(delay[i].estimatedTime);
         routeIds.push(delay[i].routeId);
         headsigns.push(delay[i].headsign);
       }
       routeIds.push(" ");
       times.push(" ");
-      // console.log(routeIds.join(" "));
-      // console.log(times.join(" "));
-      // console.log(headsigns.join(" "));
 
       for (let i = 0; i < routeIds.length; i++) {
         let value = routeIds[i].toString();
@@ -201,9 +190,7 @@ const app = () => {
         if (value1 === "4" && value.length > 1) {
           value = value.slice(1);
           value1 = "N" + value;
-          //console.log(value1);
           routeIds[i] = value1;
-          //console.log(routeIds);
         }
       }
 
@@ -278,8 +265,6 @@ const app = () => {
     getTimeData().catch((error) => {
       console.error();
     });
-
-    //getTimeData();
   });
 
   //remove line
@@ -309,7 +294,6 @@ const app = () => {
       const card = card1.parentElement;
       const stop1 = card.children;
       const stop = stop1[0].innerText;
-      // console.log(stop);
 
       let API_URL =
         "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json";
@@ -321,7 +305,6 @@ const app = () => {
       let input = stop;
       let ID;
       let directionId = stop1[3].innerText;
-      // console.log(directionId);
 
       let directions;
 
@@ -345,8 +328,6 @@ const app = () => {
             stops[i].stopCode === "02" &&
             stops[i].zoneId === 1
           ) {
-            // console.log(stops[i].stopId);
-
             ID = stops[i].stopId;
 
             dataArr = [ID, stops[i].stopName];
@@ -356,7 +337,6 @@ const app = () => {
             directions[terminus.indexOf(stop)] = directionId;
 
             localStorage.setItem("directions", JSON.stringify(directions));
-            // console.log(directionId);
           }
         }
       } else if (directionId === "02") {
@@ -366,8 +346,6 @@ const app = () => {
             stops[i].stopCode === "01" &&
             stops[i].zoneId === 1
           ) {
-            // console.log(stops[i].stopId);
-
             ID = stops[i].stopId;
 
             dataArr = [ID, stops[i].stopName];
@@ -377,7 +355,6 @@ const app = () => {
             directions[terminus.indexOf(stop)] = directionId;
 
             localStorage.setItem("directions", JSON.stringify(directions));
-            // console.log(directionId);
           }
         }
       }
@@ -401,16 +378,14 @@ const app = () => {
       times.push(" ");
 
       const reverseSchedule = stop1[1].children;
-      // console.log(reverseSchedule);
+
       for (let i = 0; i < routeIds.length; i++) {
         let value = routeIds[i].toString();
         let value1 = value.charAt(0);
         if (value1 === "4" && value.length > 1) {
           value = value.slice(1);
           value1 = "N" + value;
-          //console.log(value1);
           routeIds[i] = value1;
-          //console.log(routeIds);
         }
       }
 
@@ -479,15 +454,11 @@ const app = () => {
           stops[i].stopCode === directions[terminus.indexOf(input)] &&
           stops[i].zoneId === 1
         ) {
-          // console.log(stops[i].stopId);
-
           ID = stops[i].stopId;
 
           dataArr = [ID, stops[i].stopName];
         }
       }
-
-      // console.log(dataArr[1]);
 
       API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 
@@ -500,18 +471,12 @@ const app = () => {
       let routeIds = [];
       let headsigns = [];
       for (let i = 0; i < delay.length; i++) {
-        // if (delay[i].routeId[0] === "4") {
-        //   delay[i].routeId[0] === "N";
-        // }
         times.push(delay[i].estimatedTime);
         routeIds.push(delay[i].routeId);
         headsigns.push(delay[i].headsign);
       }
       routeIds.push(" ");
       times.push(" ");
-      // console.log(routeIds.join(" "));
-      // console.log(times.join(" "));
-      // console.log(headsigns.join(" "));
 
       for (let i = 0; i < routeIds.length; i++) {
         let value = routeIds[i].toString();
@@ -519,9 +484,7 @@ const app = () => {
         if (value1 === "4" && value.length > 1) {
           value = value.slice(1);
           value1 = "N" + value;
-          //console.log(value1);
           routeIds[i] = value1;
-          //console.log(routeIds);
         }
       }
 
@@ -621,5 +584,3 @@ const app = () => {
 };
 
 app();
-
-//! night bus

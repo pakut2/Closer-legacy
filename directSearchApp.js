@@ -64,18 +64,15 @@ const app = () => {
         saveLocalDirectStop(input);
       }
 
-      // console.log(input);
       let words = input.split(" ");
       let code = words[words.length - 1];
-      // console.log(code);
       input = "";
+
       for (let i = 0; i < words.length - 1; i++) {
         input += words[i];
         input += " ";
       }
       input = input.slice(0, -1);
-      // console.log(input);
-      //stopInput.value = "";
 
       for (let i = 0; i < stops.length; i++) {
         if (
@@ -83,10 +80,7 @@ const app = () => {
           stops[i].stopCode === code &&
           stops[i].zoneId === 1
         ) {
-          // console.log(stops[i].stopId);
-
           let ID = stops[i].stopId;
-
           let dataArr = [ID, stops[i].stopName];
           return dataArr;
         }
@@ -97,7 +91,6 @@ const app = () => {
       let arr = await getIdData();
 
       let ID = arr[0];
-      // console.log(arr[1]);
 
       let API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 
@@ -116,9 +109,6 @@ const app = () => {
       }
       routeIds.push(" ");
       times.push(" ");
-      // console.log(routeIds.join(" "));
-      // console.log(times.join(" "));
-      // console.log(headsigns.join(" "));
 
       for (let i = 0; i < routeIds.length; i++) {
         let value = routeIds[i].toString();
@@ -126,9 +116,7 @@ const app = () => {
         if (value1 === "4" && value.length > 1) {
           value = value.slice(1);
           value1 = "N" + value;
-          //console.log(value1);
           routeIds[i] = value1;
-          //console.log(routeIds);
         }
       }
 
@@ -138,10 +126,6 @@ const app = () => {
       timeSpan.innerText = times.join("\n");
       dirSpan.innerText = headsigns.join("\n");
     };
-
-    // getTimeData().catch((error) => {
-    //   console.error();
-    // });
 
     getTimeData();
   });
@@ -180,8 +164,8 @@ const app = () => {
     let input = stop;
     let words = input.split(" ");
     let code = words[words.length - 1];
-    // console.log(input);
     input = "";
+
     for (let i = 0; i < words.length - 1; i++) {
       input += words[i];
       input += " ";
@@ -196,15 +180,11 @@ const app = () => {
         stops[i].stopCode === code &&
         stops[i].zoneId === 1
       ) {
-        // console.log(stops[i].stopId);
-
         ID = stops[i].stopId;
 
         dataArr = [ID, stops[i].stopName];
       }
     }
-
-    // console.log(dataArr[1]);
 
     API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 
@@ -223,9 +203,6 @@ const app = () => {
     }
     routeIds.push(" ");
     times.push(" ");
-    // console.log(routeIds.join(" "));
-    // console.log(times.join(" "));
-    // console.log(headsigns.join(" "));
 
     cardContainer.classList.add("revealed");
 
@@ -235,9 +212,7 @@ const app = () => {
       if (value1 === "4" && value.length > 1) {
         value = value.slice(1);
         value1 = "N" + value;
-        //console.log(value1);
         routeIds[i] = value1;
-        //console.log(routeIds);
       }
     }
 
