@@ -1,3 +1,7 @@
 /Assets
 
 config.xml
+
+manifest.json
+
+service-worker.js
