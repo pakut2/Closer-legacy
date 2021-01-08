@@ -2,6 +2,21 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
+const prompt = document.querySelector(".offline");
+
+window.addEventListener("load", () => {
+  const handleConnection = () => {
+    if (navigator.onLine) {
+      prompt.classList.add("indicator");
+    } else {
+      prompt.classList.remove("indicator");
+    }
+  };
+
+  window.addEventListener("offline", handleConnection);
+  window.addEventListener("online", handleConnection);
+});
+
 const navSlide = () => {
   const burger = document.querySelector(".burger");
   const nav = document.querySelector(".nav-links");

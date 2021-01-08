@@ -318,3 +318,26 @@ form button:hover {
 .hidden {
   opacity: 0;
 }
+
+.offline {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+.offline span {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+}
+.header {
+  font-size: 1.8rem;
+  padding-bottom: 1rem;
+}
+
+.indicator {
+  display: none;
+}
