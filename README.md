@@ -6,4 +6,4 @@
 
 ### In Direct Search, type name of the stop following direction ID (01, 02, etc.)
 
-## http://pakut2.ddns.net
+## https://pakut2.ddns.net
