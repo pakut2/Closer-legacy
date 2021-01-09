@@ -72,6 +72,24 @@ const dragAndDrop = () => {
     draggable.addEventListener("dragend", () => {
       draggable.classList.remove("dragging");
     });
+
+    let timer;
+    let touchDuration = 1000;
+    draggable.addEventListener("touchstart", () => {
+      timer = setTimeout(() => {
+        if (window.innerWidth <= 768) {
+          draggable.setAttribute("draggable", "true");
+          draggable.classList.add("dragging");
+        }
+      }, touchDuration);
+      draggable.addEventListener("touchend", () => {
+        if (timer) {
+          clearTimeout(timer);
+          draggable.setAttribute("draggable", "false");
+          draggable.classList.remove("dragging");
+        }
+      });
+    });
   });
 
   container.addEventListener("dragover", (e) => {
@@ -128,7 +146,7 @@ const app = () => {
   const searchButton = document.querySelector(".submit-button");
   const stopInput = document.querySelector(".stop-input");
   const stopList = document.querySelector(".stop-list");
-  const dragButton = document.querySelector(".drag-drop");
+  // const dragButton = document.querySelector(".drag-drop");
   const navBar = document.querySelector(".nav");
   const nav = document.querySelector(".nav-links");
 
@@ -141,24 +159,24 @@ const app = () => {
     }
   };
 
-  dragButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const cards = document.querySelectorAll(".card");
+  // dragButton.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   const cards = document.querySelectorAll(".card");
 
-    cards.forEach((card) => {
-      if (card.getAttribute("draggable") === "true") {
-        card.setAttribute("draggable", "false");
-        card.style.cursor = "auto";
-        dragButton.style.color = "white";
-        dragButton.style.background = "#f54538";
-      } else {
-        card.setAttribute("draggable", "true");
-        card.style.cursor = "move";
-        dragButton.style.background = "white";
-        dragButton.style.color = "#f54538";
-      }
-    });
-  });
+  //   cards.forEach((card) => {
+  //     if (card.getAttribute("draggable") === "true") {
+  //       card.setAttribute("draggable", "false");
+  //       card.style.cursor = "auto";
+  //       dragButton.style.color = "white";
+  //       dragButton.style.background = "#f54538";
+  //     } else {
+  //       card.setAttribute("draggable", "true");
+  //       card.style.cursor = "move";
+  //       dragButton.style.background = "white";
+  //       dragButton.style.color = "#f54538";
+  //     }
+  //   });
+  // });
 
   const capitalise = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
