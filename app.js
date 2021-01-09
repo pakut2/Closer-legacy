@@ -278,7 +278,12 @@ const app = () => {
       scheduleDiv.appendChild(lineSpan);
 
       const timeSpan = document.createElement("span");
-      timeSpan.innerText = times.join("\n");
+      if (times.length === 1) {
+        scheduleDiv.style.paddingLeft = 0;
+        timeSpan.innerText = "No courses available now.";
+      } else {
+        timeSpan.innerText = times.join("\n");
+      }
       timeSpan.classList.add("time-span");
       scheduleDiv.appendChild(timeSpan);
 
@@ -324,7 +329,6 @@ const app = () => {
   //toggle dragAndDrop on mobile
   stopList.addEventListener("click", (e) => {
     const item = e.target;
-    console.log(item);
 
     if (item.classList[0] === "drag-drop-button") {
       const card1 = item.parentElement;
@@ -465,7 +469,15 @@ const app = () => {
       }
 
       reverseSchedule[0].innerText = routeIds.join("\n");
-      reverseSchedule[1].innerText = times.join("\n");
+      if (times.length === 1) {
+        reverseSchedule[1].parentElement.style.paddingLeft = 0;
+        reverseSchedule[1].innerText = "No courses available now.";
+        reverseSchedule[0].innerText = "";
+        reverseSchedule[2].innerText = "";
+      } else {
+        reverseSchedule[1].innerText = times.join("\n");
+        reverseSchedule[1].parentElement.style.paddingLeft = "7%";
+      }
       reverseSchedule[2].innerText = headsigns.join("\n");
     }
   });
@@ -599,7 +611,12 @@ const app = () => {
       scheduleDiv.appendChild(lineSpan);
 
       const timeSpan = document.createElement("span");
-      timeSpan.innerText = times.join("\n");
+      if (times.length === 1) {
+        scheduleDiv.style.paddingLeft = 0;
+        timeSpan.innerText = "No courses available now.";
+      } else {
+        timeSpan.innerText = times.join("\n");
+      }
       timeSpan.classList.add("time-span");
       scheduleDiv.appendChild(timeSpan);
 
