@@ -156,7 +156,12 @@ const app = () => {
       cardContainer.classList.add("revealed");
       stopNameSpan.innerText = arr[1];
       lineSpan.innerText = routeIds.join("\n");
-      timeSpan.innerText = times.join("\n");
+      if (times.length === 1) {
+        timeSpan.parentElement.style.paddingLeft = 0;
+        timeSpan.innerText = "No courses available now.";
+      } else {
+        timeSpan.innerText = times.join("\n");
+      }
       dirSpan.innerText = headsigns.join("\n");
     };
 
@@ -251,7 +256,12 @@ const app = () => {
 
     stopNameSpan.innerText = input;
     lineSpan.innerText = routeIds.join("\n");
-    timeSpan.innerText = times.join("\n");
+    if (times.length === 1) {
+      timeSpan.parentElement.style.paddingLeft = 0;
+      timeSpan.innerText = "No courses available now.";
+    } else {
+      timeSpan.innerText = times.join("\n");
+    }
     dirSpan.innerText = headsigns.join("\n");
   };
   document.addEventListener("DOMContentLoaded", getDirectStop);
