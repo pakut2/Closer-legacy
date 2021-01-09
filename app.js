@@ -73,23 +73,23 @@ const dragAndDrop = () => {
       draggable.classList.remove("dragging");
     });
 
-    let timer;
-    let touchDuration = 1000;
-    draggable.addEventListener("touchstart", () => {
-      timer = setTimeout(() => {
-        if (window.innerWidth <= 768) {
-          draggable.setAttribute("draggable", "true");
-          draggable.classList.add("dragging");
-        }
-      }, touchDuration);
-      draggable.addEventListener("touchend", () => {
-        if (timer) {
-          clearTimeout(timer);
-          draggable.setAttribute("draggable", "false");
-          draggable.classList.remove("dragging");
-        }
-      });
-    });
+    // let timer;
+    // let touchDuration = 1000;
+    // draggable.addEventListener("touchstart", () => {
+    //   timer = setTimeout(() => {
+    //     if (window.innerWidth <= 768) {
+    //       draggable.setAttribute("draggable", "true");
+    //       draggable.classList.add("dragging");
+    //     }
+    //   }, touchDuration);
+    //   draggable.addEventListener("touchend", () => {
+    //     if (timer) {
+    //       clearTimeout(timer);
+    //       draggable.setAttribute("draggable", "false");
+    //       draggable.classList.remove("dragging");
+    //     }
+    //   });
+    // });
   });
 
   container.addEventListener("dragover", (e) => {
@@ -146,7 +146,6 @@ const app = () => {
   const searchButton = document.querySelector(".submit-button");
   const stopInput = document.querySelector(".stop-input");
   const stopList = document.querySelector(".stop-list");
-  // const dragButton = document.querySelector(".drag-drop");
   const navBar = document.querySelector(".nav");
   const nav = document.querySelector(".nav-links");
 
@@ -158,25 +157,6 @@ const app = () => {
       nav.classList.remove("sticky");
     }
   };
-
-  // dragButton.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   const cards = document.querySelectorAll(".card");
-
-  //   cards.forEach((card) => {
-  //     if (card.getAttribute("draggable") === "true") {
-  //       card.setAttribute("draggable", "false");
-  //       card.style.cursor = "auto";
-  //       dragButton.style.color = "white";
-  //       dragButton.style.background = "#f54538";
-  //     } else {
-  //       card.setAttribute("draggable", "true");
-  //       card.style.cursor = "move";
-  //       dragButton.style.background = "white";
-  //       dragButton.style.color = "#f54538";
-  //     }
-  //   });
-  // });
 
   const capitalise = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -262,7 +242,7 @@ const app = () => {
 
       const cardDiv = document.createElement("div");
       cardDiv.classList.add("card");
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1024) {
         cardDiv.setAttribute("draggable", "false");
         cardDiv.style.cursor = "auto";
       } else {
@@ -279,6 +259,14 @@ const app = () => {
       stopNameDiv.appendChild(stopNameSpan);
 
       saveLocalTerminus(arr[1]);
+
+      const dragDropButton = document.createElement("button");
+      dragDropButton.classList.add("drag-drop-button");
+      if (window.innerWidth > 1024) {
+        dragDropButton.classList.add("indicator");
+      }
+      dragDropButton.innerHTML = "<i class='fas fa-arrows-alt'></i>";
+      stopNameDiv.appendChild(dragDropButton);
 
       const scheduleDiv = document.createElement("div");
       scheduleDiv.classList.add("schedule-div");
@@ -331,6 +319,27 @@ const app = () => {
     getTimeData().catch((error) => {
       console.error();
     });
+  });
+
+  //toggle dragAndDrop on mobile
+  stopList.addEventListener("click", (e) => {
+    const item = e.target;
+    console.log(item);
+
+    if (item.classList[0] === "drag-drop-button") {
+      const card1 = item.parentElement;
+      const card = card1.parentElement;
+
+      if (card.getAttribute("draggable") === "true") {
+        card.setAttribute("draggable", "false");
+        item.style.color = "white";
+        card.style.cursor = "auto";
+      } else {
+        card.setAttribute("draggable", "true");
+        card.style.cursor = "move";
+        item.style.color = "#f54538";
+      }
+    }
   });
 
   //remove line
@@ -556,7 +565,7 @@ const app = () => {
 
       const cardDiv = document.createElement("div");
       cardDiv.classList.add("card");
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1024) {
         cardDiv.setAttribute("draggable", "false");
         cardDiv.style.cursor = "auto";
       } else {
@@ -571,6 +580,14 @@ const app = () => {
       stopNameSpan.innerText = dataArr[1];
       stopNameSpan.classList.add("stop-name-span");
       stopNameDiv.appendChild(stopNameSpan);
+
+      const dragDropButton = document.createElement("button");
+      dragDropButton.classList.add("drag-drop-button");
+      if (window.innerWidth > 1024) {
+        dragDropButton.classList.add("indicator");
+      }
+      dragDropButton.innerHTML = "<i class='fas fa-arrows-alt'></i>";
+      stopNameDiv.appendChild(dragDropButton);
 
       const scheduleDiv = document.createElement("div");
       scheduleDiv.classList.add("schedule-div");

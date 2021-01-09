@@ -69,26 +69,6 @@ li:nth-of-type(1) {
 li:nth-of-type(3) {
   display: none;
 }
-/* .drag-drop {
-  background: #f54538;
-  color: white;
-  border: none;
-  padding: 1rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  min-width: 50%;
-  height: 3rem;
-  border-radius: 2rem;
-}
-.drag-drop:hover {
-  background: white;
-  color: #f54538;
-}
-
-.fa-arrows-alt {
-  pointer-events: none;
-} */
 
 .burger {
   display: none;
@@ -262,6 +242,24 @@ form button:hover {
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
   letter-spacing: 1px;
+  position: relative;
+}
+
+.drag-drop-button {
+  color: white;
+  font-size: 24px;
+  background: #080808;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 3%;
+}
+.drag-drop-button:hover {
+  color: #f54538;
+}
+.fa-arrows-alt {
+  pointer-events: none;
 }
 
 .schedule-div {
