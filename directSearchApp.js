@@ -161,6 +161,7 @@ const app = () => {
         timeSpan.innerText = "No courses available now.";
       } else {
         timeSpan.innerText = times.join("\n");
+        timeSpan.parentElement.style.paddingLeft = "7%";
       }
       dirSpan.innerText = headsigns.join("\n");
     };
@@ -261,6 +262,7 @@ const app = () => {
       timeSpan.innerText = "No courses available now.";
     } else {
       timeSpan.innerText = times.join("\n");
+      timeSpan.parentElement.style.paddingLeft = "7%";
     }
     dirSpan.innerText = headsigns.join("\n");
   };
