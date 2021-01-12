@@ -18,9 +18,10 @@
       integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./localSearchStyle.css" />
     <link rel="icon" type="image/png" href="Assets/Dog.png" />
-    <title>Bus Schedule</title>
+
+    <title>Closer</title>
   </head>
   <body>
     <nav class="nav">
@@ -28,9 +29,9 @@
         <h4>Closer</h4>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html">Local Search</a></li>
-        <li><a href="#">Search</a></li>
+        <li><a href="index.html">Search</a></li>
         <li><a href="directSearch.html">Direct Search</a></li>
+        <li><a href="#">Local Search</a></li>
       </ul>
       <div class="burger">
         <div class="line1"></div>
@@ -40,12 +41,6 @@
     </nav>
 
     <section class="section">
-      <form>
-        <input type="text" class="stop-input" placeholder="Search" />
-        <button class="submit-button" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
       <div class="stop-container">
         <ul class="stop-list">
           <div class="offline indicator">
@@ -58,7 +53,6 @@
         </ul>
       </div>
     </section>
-    <script src="DragDropTouch.js"></script>
-    <script src="app.js"></script>
+    <script src="localSearchApp.js"></script>
   </body>
 </html>

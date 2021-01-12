@@ -55,7 +55,7 @@ nav {
   background: white;
   color: #f54538;
 }
-li:nth-of-type(3) {
+li:nth-of-type(2) {
   transition: all 1s ease;
   transform: scale(1.3);
 }
@@ -235,13 +235,14 @@ form button:hover {
   padding: 0.5rem;
   padding-left: 7%;
 }
-.line-span {
+.schedule-div span {
   text-align: center;
 }
-.dir-span {
-  text-align: center;
+.schedule-div span::first-line {
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 0.5px;
 }
-
 .revealed {
   opacity: 1;
 }

@@ -1,3 +1,7 @@
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+
 const prompt = document.querySelector(".offline");
 
 window.addEventListener("load", () => {
@@ -270,25 +274,34 @@ const app = () => {
       scheduleDiv.classList.add("schedule-div");
       cardDiv.appendChild(scheduleDiv);
 
+      if (headsigns.length !== 0) {
+        routeIds.unshift("Line");
+        headsigns.unshift("Direction");
+        times.unshift("Departure");
+      }
+
       const lineSpan = document.createElement("span");
       lineSpan.innerText = routeIds.join("\n");
       lineSpan.classList.add("line-span");
       scheduleDiv.appendChild(lineSpan);
 
-      const timeSpan = document.createElement("span");
-      if (times.length === 1) {
-        scheduleDiv.style.paddingLeft = 0;
-        timeSpan.innerText = "No courses available now.";
-      } else {
-        timeSpan.innerText = times.join("\n");
-      }
-      timeSpan.classList.add("time-span");
-      scheduleDiv.appendChild(timeSpan);
-
       const dirSpan = document.createElement("span");
-      dirSpan.innerText = headsigns.join("\n");
+      // dirSpan.innerText = headsigns.join("\n");
+      if (headsigns.length === 0) {
+        scheduleDiv.style.paddingLeft = 0;
+        dirSpan.innerText = "No courses available now.";
+        dirSpan.style.width = "100%";
+      } else {
+        dirSpan.style.width = "auto";
+        dirSpan.innerText = headsigns.join("\n");
+      }
       dirSpan.classList.add("dir-span");
       scheduleDiv.appendChild(dirSpan);
+
+      const timeSpan = document.createElement("span");
+      timeSpan.innerText = times.join("\n");
+      timeSpan.classList.add("time-span");
+      scheduleDiv.appendChild(timeSpan);
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.classList.add("buttons-div");
@@ -466,17 +479,25 @@ const app = () => {
         }
       }
 
+      if (headsigns.length !== 0) {
+        routeIds.unshift("Line");
+        headsigns.unshift("Direction");
+        times.unshift("Departure");
+      }
+
       reverseSchedule[0].innerText = routeIds.join("\n");
-      if (times.length === 1) {
+      if (headsigns.length === 0) {
         reverseSchedule[1].parentElement.style.paddingLeft = 0;
         reverseSchedule[1].innerText = "No courses available now.";
+        reverseSchedule[1].style.width = "100%";
         reverseSchedule[0].innerText = "";
         reverseSchedule[2].innerText = "";
       } else {
-        reverseSchedule[1].innerText = times.join("\n");
+        reverseSchedule[1].style.width = "auto";
+        reverseSchedule[1].innerText = headsigns.join("\n");
         reverseSchedule[1].parentElement.style.paddingLeft = "7%";
       }
-      reverseSchedule[2].innerText = headsigns.join("\n");
+      reverseSchedule[2].innerText = times.join("\n");
     }
   });
 
@@ -603,25 +624,32 @@ const app = () => {
       scheduleDiv.classList.add("schedule-div");
       cardDiv.appendChild(scheduleDiv);
 
+      if (headsigns.length !== 0) {
+        routeIds.unshift("Line");
+        headsigns.unshift("Direction");
+        times.unshift("Departure");
+      }
+
       const lineSpan = document.createElement("span");
       lineSpan.innerText = routeIds.join("\n");
       lineSpan.classList.add("line-span");
       scheduleDiv.appendChild(lineSpan);
 
-      const timeSpan = document.createElement("span");
-      if (times.length === 1) {
-        scheduleDiv.style.paddingLeft = 0;
-        timeSpan.innerText = "No courses available now.";
-      } else {
-        timeSpan.innerText = times.join("\n");
-      }
-      timeSpan.classList.add("time-span");
-      scheduleDiv.appendChild(timeSpan);
-
       const dirSpan = document.createElement("span");
-      dirSpan.innerText = headsigns.join("\n");
+      // dirSpan.innerText = headsigns.join("\n");
+      if (headsigns.length === 0) {
+        scheduleDiv.style.paddingLeft = 0;
+        dirSpan.innerText = "No courses available now.";
+      } else {
+        dirSpan.innerText = headsigns.join("\n");
+      }
       dirSpan.classList.add("dir-span");
       scheduleDiv.appendChild(dirSpan);
+
+      const timeSpan = document.createElement("span");
+      timeSpan.innerText = times.join("\n");
+      timeSpan.classList.add("time-span");
+      scheduleDiv.appendChild(timeSpan);
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.classList.add("buttons-div");
@@ -680,5 +708,23 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getTerminus);
 };
+
+// function randomNotification() {
+//   var notifTitle = "Opaopa";
+//   var notifBody = "asdasd";
+//   var notifImg = "./Assets/Dog.png";
+//   var options = {
+//     body: notifBody,
+//     icon: notifImg,
+//   };
+//   var notif = new Notification(notifTitle, options);
+//   setTimeout(randomNotification, 30000);
+// }
+
+// Notification.requestPermission().then((result) => {
+//   if (result === "granted") {
+//     randomNotification();
+//   }
+// });
 
 app();

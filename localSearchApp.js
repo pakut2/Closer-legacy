@@ -1,7 +1,3 @@
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-
 const prompt = document.querySelector(".offline");
 
 window.addEventListener("load", () => {
@@ -179,25 +175,32 @@ const successCallback = (position) => {
       scheduleDiv.classList.add("schedule-div");
       cardDiv.appendChild(scheduleDiv);
 
+      if (headsigns.length !== 0) {
+        routeIds.unshift("Line");
+        headsigns.unshift("Direction");
+        times.unshift("Departure");
+      }
+
       const lineSpan = document.createElement("span");
       lineSpan.innerText = routeIds.join("\n");
       lineSpan.classList.add("line-span");
       scheduleDiv.appendChild(lineSpan);
 
-      const timeSpan = document.createElement("span");
-      if (times.length === 1) {
-        scheduleDiv.style.paddingLeft = 0;
-        timeSpan.innerText = "No courses available now.";
-      } else {
-        timeSpan.innerText = times.join("\n");
-      }
-      timeSpan.classList.add("time-span");
-      scheduleDiv.appendChild(timeSpan);
-
       const dirSpan = document.createElement("span");
-      dirSpan.innerText = headsigns.join("\n");
+      // dirSpan.innerText = headsigns.join("\n");
+      if (headsigns.length === 0) {
+        scheduleDiv.style.paddingLeft = 0;
+        dirSpan.innerText = "No courses available now.";
+      } else {
+        dirSpan.innerText = headsigns.join("\n");
+      }
       dirSpan.classList.add("dir-span");
       scheduleDiv.appendChild(dirSpan);
+
+      const timeSpan = document.createElement("span");
+      timeSpan.innerText = times.join("\n");
+      timeSpan.classList.add("time-span");
+      scheduleDiv.appendChild(timeSpan);
 
       const distanceDiv = document.createElement("div");
       distanceDiv.classList.add("distance-div");
@@ -225,6 +228,10 @@ const app = () => {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
   }
+
+  let timer = setTimeout(() => {
+    location.reload();
+  }, 30000);
 };
 
 app();

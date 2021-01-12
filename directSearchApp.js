@@ -157,15 +157,26 @@ const app = () => {
 
       cardContainer.classList.add("revealed");
       stopNameSpan.innerText = arr[1];
-      lineSpan.innerText = routeIds.join("\n");
-      if (times.length === 1) {
-        timeSpan.parentElement.style.paddingLeft = 0;
-        timeSpan.innerText = "No courses available now.";
-      } else {
-        timeSpan.innerText = times.join("\n");
-        timeSpan.parentElement.style.paddingLeft = "7%";
+
+      if (headsigns.length !== 0) {
+        routeIds.unshift("Line");
+        headsigns.unshift("Direction");
+        times.unshift("Departure");
       }
-      dirSpan.innerText = headsigns.join("\n");
+
+      lineSpan.innerText = routeIds.join("\n");
+
+      if (headsigns.length === 0) {
+        dirSpan.parentElement.style.paddingLeft = 0;
+        dirSpan.style.width = "100%";
+        dirSpan.innerText = "No courses available now.";
+      } else {
+        dirSpan.innerText = headsigns.join("\n");
+        dirSpan.parentElement.style.paddingLeft = "7%";
+        dirSpan.style.width = "auto";
+      }
+
+      timeSpan.innerText = times.join("\n");
     };
 
     getTimeData();
@@ -258,15 +269,24 @@ const app = () => {
     }
 
     stopNameSpan.innerText = input;
-    lineSpan.innerText = routeIds.join("\n");
-    if (times.length === 1) {
-      timeSpan.parentElement.style.paddingLeft = 0;
-      timeSpan.innerText = "No courses available now.";
-    } else {
-      timeSpan.innerText = times.join("\n");
-      timeSpan.parentElement.style.paddingLeft = "7%";
+
+    if (headsigns.length !== 0) {
+      routeIds.unshift("Line");
+      headsigns.unshift("Direction");
+      times.unshift("Departure");
     }
-    dirSpan.innerText = headsigns.join("\n");
+
+    lineSpan.innerText = routeIds.join("\n");
+
+    if (headsigns.length === 0) {
+      dirSpan.parentElement.style.paddingLeft = 0;
+      dirSpan.innerText = "No courses available now.";
+    } else {
+      dirSpan.innerText = headsigns.join("\n");
+      dirSpan.parentElement.style.paddingLeft = "7%";
+    }
+
+    timeSpan.innerText = times.join("\n");
   };
   document.addEventListener("DOMContentLoaded", getDirectStop);
 };
