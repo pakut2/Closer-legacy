@@ -1,7 +1,3 @@
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-
 const prompt = document.querySelector(".offline");
 
 window.addEventListener("load", () => {

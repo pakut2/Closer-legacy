@@ -1,3 +1,7 @@
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+
 const prompt = document.querySelector(".offline");
 
 window.addEventListener("load", () => {
@@ -77,13 +81,24 @@ const calDist = (lat1, lon1, lat2, lon2) => {
   return distance;
 };
 
-const successCallback = async (position) => {
+const successCallback = (position) => {
   //   console.log(position.coords.latitude);
   //   console.log(position.coords.longitude);
   const lat1 = position.coords.latitude;
   const lon1 = position.coords.longitude;
 
   const stopList = document.querySelector(".stop-list");
+  const navBar = document.querySelector(".nav");
+  const nav = document.querySelector(".nav-links");
+
+  let sticky = navBar.offsetTop;
+  window.onscroll = () => {
+    if (window.pageYOffset > sticky) {
+      nav.classList.add("sticky");
+    } else {
+      nav.classList.remove("sticky");
+    }
+  };
 
   const getIdData = async () => {
     let API_URL =
