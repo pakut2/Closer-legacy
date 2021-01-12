@@ -34,6 +34,7 @@ const navSlide = () => {
 
     burger.classList.toggle("toggle");
     nav.classList.add("transition");
+    section.classList.toggle("shadow");
   });
 
   section.addEventListener("click", () => {
@@ -50,6 +51,7 @@ const navSlide = () => {
       });
       burger.classList.toggle("toggle");
       nav.classList.add("transition");
+      section.classList.toggle("shadow");
     }
   });
 };

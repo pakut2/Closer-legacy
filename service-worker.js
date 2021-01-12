@@ -25,6 +25,9 @@ const PRECACHE_URLS = [
   "directSearch.html",
   "directSearchApp.js",
   "directSearchStyle.css",
+  "localSearch.html",
+  "localSearchApp.js",
+  "localSearchStyle.css",
 ];
 
 // The install handler takes care of precaching the resources we always need.
