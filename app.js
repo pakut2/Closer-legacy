@@ -709,22 +709,4 @@ const app = () => {
   document.addEventListener("DOMContentLoaded", getTerminus);
 };
 
-// function randomNotification() {
-//   var notifTitle = "Opaopa";
-//   var notifBody = "asdasd";
-//   var notifImg = "./Assets/Dog.png";
-//   var options = {
-//     body: notifBody,
-//     icon: notifImg,
-//   };
-//   var notif = new Notification(notifTitle, options);
-//   setTimeout(randomNotification, 30000);
-// }
-
-// Notification.requestPermission().then((result) => {
-//   if (result === "granted") {
-//     randomNotification();
-//   }
-// });
-
 app();
