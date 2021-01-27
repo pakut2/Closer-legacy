@@ -1,6 +1,6 @@
 # Closer
 
-### Save most used bus and tram stops from ZTM Gdansk. Display everything in one place for quick comparison.
+### Save most used bus and tram stops from ZTM Gdańsk. Display everything in one place for quick comparison.
 
 ### In Search, type name of the stop
 
