@@ -20,14 +20,14 @@ const RUNTIME = "runtime";
 // A list of local resources we always want to be cached.
 const PRECACHE_URLS = [
   "index.html",
-  "localSearchApp.js",
-  "localSearchStyle.css",
-  "search.html",
   "style.css",
   "app.js",
   "directSearch.html",
   "directSearchApp.js",
   "directSearchStyle.css",
+  "localSearch.html",
+  "localSearchStyle.css",
+  "localSearchApp.js",
 ];
 
 // The install handler takes care of precaching the resources we always need.
