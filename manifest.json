@@ -1,0 +1,23 @@
+{
+  "name": "Closer",
+  "short_name": "Closer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#252525",
+  "theme_color": "#080808",
+  "orientation": "portrait",
+  "description": "Bus Schedule for Ztm Gdansk",
+  "icons": [
+    {
+      "src": "./Assets/hots192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./Assets/hots512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
