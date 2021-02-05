@@ -95,10 +95,6 @@ const app = () => {
 
       let input = stopInput.value.split(" ").map(capitalise).join(" ");
 
-      if (input !== direct[0]) {
-        saveLocalDirectStop(input);
-      }
-
       let words = input.split(" ");
       let code = words[words.length - 1];
       input = "";
@@ -116,7 +112,7 @@ const app = () => {
           stops[i].zoneId === 1
         ) {
           let ID = stops[i].stopId;
-          let dataArr = [ID, stops[i].stopName];
+          let dataArr = [ID, `${stops[i].stopName} ${stops[i].stopCode}`];
           return dataArr;
         }
       }
@@ -157,6 +153,7 @@ const app = () => {
 
       cardContainer.classList.add("revealed");
       stopNameSpan.innerText = arr[1];
+      saveLocalDirectStop(arr[1]);
 
       if (headsigns.length !== 0) {
         routeIds.unshift("Line");
@@ -234,7 +231,7 @@ const app = () => {
       ) {
         ID = stops[i].stopId;
 
-        dataArr = [ID, stops[i].stopName];
+        dataArr = [ID, `${stops[i].stopName} ${stops[i].stopCode}`];
       }
     }
 
@@ -268,7 +265,7 @@ const app = () => {
       }
     }
 
-    stopNameSpan.innerText = input;
+    stopNameSpan.innerText = dataArr[1];
 
     if (headsigns.length !== 0) {
       routeIds.unshift("Line");
