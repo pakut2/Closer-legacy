@@ -111,7 +111,7 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          stops[i].stopName === input &&
+          latinize(stops[i].stopName) === latinize(input) &&
           stops[i].stopCode === code &&
           stops[i].zoneId === 1
         ) {
