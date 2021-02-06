@@ -160,9 +160,9 @@ const app = () => {
     }
   };
 
-  const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  // const capitalize = (string) => {
+  //   return string.charAt(0).toUpperCase() + string.slice(1);
+  // };
 
   stopInput.addEventListener("mouseover", () => {
     stopInput.focus();
@@ -186,8 +186,11 @@ const app = () => {
         terminus = JSON.parse(localStorage.getItem("terminus"));
       }
 
-      let input = stopInput.value.split(" ").map(capitalize).join(" ");
-      const isDuplicate = terminus.some((n) => latinize(n) === latinize(input));
+      //let input = stopInput.value.split(" ").map(capitalize).join(" ");
+      let input = stopInput.value;
+      const isDuplicate = terminus.some(
+        (n) => latinize(n.toLowerCase()) === latinize(input.toLowerCase())
+      );
       stopInput.value = "";
 
       if (isDuplicate) {
