@@ -122,10 +122,18 @@ const successCallback = (position) => {
     return array;
   };
 
+  const sortFunction = (a, b) => {
+    if (a[0] === b[0]) {
+      return 0;
+    } else {
+      return a[0] < b[0] ? -1 : 1;
+    }
+  };
+
   const getTimeData = async () => {
     const array = await getIdData();
-    // console.log(array.sort());
-    array.sort();
+    // console.log(array.sort(sortFunction));
+    array.sort(sortFunction);
 
     for (let i = 0; i < array.length - 1; i++) {
       let ID = array[i][1];
@@ -215,9 +223,10 @@ const successCallback = (position) => {
     }
   };
 
-  getTimeData().catch((error) => {
-    console.error();
-  });
+  // getTimeData().catch((error) => {
+  //   console.error();
+  // });
+  getTimeData();
 };
 
 const errorCallback = (error) => {
