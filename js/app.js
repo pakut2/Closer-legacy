@@ -187,7 +187,7 @@ const app = () => {
       }
 
       let input = stopInput.value.split(" ").map(capitalise).join(" ");
-      const isDuplicate = terminus.some((n) => n === input);
+      const isDuplicate = terminus.some((n) => latinize(n) === latinize(input));
       stopInput.value = "";
 
       if (isDuplicate) {
@@ -197,7 +197,8 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName) === latinize(input) &&
+          latinize(stops[i].stopName.toLowerCase()) ===
+            latinize(input.toLowerCase()) &&
           stops[i].stopCode === "01" &&
           stops[i].zoneId === 1
         ) {
