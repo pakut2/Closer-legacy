@@ -160,7 +160,7 @@ const app = () => {
     }
   };
 
-  const capitalise = (string) => {
+  const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -186,7 +186,7 @@ const app = () => {
         terminus = JSON.parse(localStorage.getItem("terminus"));
       }
 
-      let input = stopInput.value.split(" ").map(capitalise).join(" ");
+      let input = stopInput.value.split(" ").map(capitalize).join(" ");
       const isDuplicate = terminus.some((n) => latinize(n) === latinize(input));
       stopInput.value = "";
 
