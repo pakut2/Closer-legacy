@@ -336,9 +336,10 @@ const app = () => {
       dragAndDrop();
     };
 
-    getTimeData().catch((error) => {
-      console.error();
-    });
+    // getTimeData().catch((error) => {
+    //   console.error();
+    // });
+    getTimeData();
   });
 
   //toggle dragAndDrop on mobile

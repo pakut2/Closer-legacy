@@ -40,11 +40,13 @@
     </nav>
 
     <section class="section">
-      <form>
-        <input type="text" class="stop-input" placeholder="Direct Search" />
-        <button class="submit-button" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
+      <form autocomplete="off">
+        <div class="autocomplete">
+          <input type="text" class="stop-input" placeholder="Direct Search" />
+          <button class="submit-button" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
       </form>
 
       <div class="stop-container">
@@ -69,6 +71,7 @@
       </div>
     </section>
     <script src="../modules/latinize.js"></script>
+    <script src="../modules/directAutocomplete.js"></script>
     <script src="../js/directSearchApp.js"></script>
   </body>
 </html>
