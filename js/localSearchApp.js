@@ -223,10 +223,10 @@ const successCallback = (position) => {
     }
   };
 
-  // getTimeData().catch((error) => {
-  //   console.error();
-  // });
-  getTimeData();
+  getTimeData().catch((error) => {
+    console.error();
+  });
+  // getTimeData();
 };
 
 const errorCallback = (error) => {
