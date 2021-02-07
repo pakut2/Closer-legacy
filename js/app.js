@@ -115,9 +115,9 @@ const app = () => {
     }
   };
 
-  // const capitalize = (string) => {
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // };
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   stopInput.addEventListener("mouseover", () => {
     stopInput.focus();
@@ -141,8 +141,8 @@ const app = () => {
         terminus = JSON.parse(localStorage.getItem("terminus"));
       }
 
-      //let input = stopInput.value.split(" ").map(capitalize).join(" ");
-      let input = stopInput.value;
+      let input = stopInput.value.split(" ").map(capitalize).join(" ");
+      //let input = stopInput.value;
       const isDuplicate = terminus.some(
         (n) => latinize(n.toLowerCase()) === latinize(input.toLowerCase())
       );
@@ -155,8 +155,7 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName.toLowerCase()) ===
-            latinize(input.toLowerCase()) &&
+          latinize(stops[i].stopName) === latinize(input) &&
           stops[i].stopCode === "01" &&
           stops[i].zoneId === 1
         ) {
@@ -291,10 +290,10 @@ const app = () => {
       dragAndDrop();
     };
 
-    // getTimeData().catch((error) => {
-    //   console.error();
-    // });
-    getTimeData();
+    getTimeData().catch((error) => {
+      console.error();
+    });
+    // getTimeData();
   });
 
   //toggle dragAndDrop on mobile

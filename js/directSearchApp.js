@@ -22,9 +22,9 @@ const app = () => {
   const dirSpan = document.querySelector(".dir-span");
   const cardContainer = document.querySelector(".stop-container");
 
-  // const capitalize = (string) => {
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // };
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   stopInput.addEventListener("mouseover", () => {
     stopInput.focus();
@@ -48,8 +48,8 @@ const app = () => {
 
       const { stops, stopId, stopName, stopCode, zoneId } = data;
 
-      //let input = stopInput.value.split(" ").map(capitalize).join(" ");
-      let input = stopInput.value;
+      let input = stopInput.value.split(" ").map(capitalize).join(" ");
+      //let input = stopInput.value;
 
       let words = input.split(" ");
       let code = words[words.length - 1];
@@ -59,12 +59,12 @@ const app = () => {
         input += words[i];
         input += " ";
       }
+      stopInput.value = input;
       input = input.slice(0, -1);
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName.toLowerCase()) ===
-            latinize(input.toLowerCase()) &&
+          latinize(stops[i].stopName) === latinize(input) &&
           stops[i].stopCode === code &&
           stops[i].zoneId === 1
         ) {
