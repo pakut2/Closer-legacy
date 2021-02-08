@@ -11,8 +11,7 @@
     {
       "src": "./Assets/hots192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "./Assets/hots512.png",

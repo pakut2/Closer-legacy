@@ -105,19 +105,7 @@ const successCallback = (position) => {
       let routeIds = [];
       let headsigns = [];
       for (let i = 0; i < delay.length; i++) {
-        let date = new Date();
-        let currentTime = date.toLocaleTimeString().slice(0, -3);
-
-        let timeStart = new Date("01/01/2021 " + currentTime);
-        let timeStop = new Date("01/01/2021 " + delay[i].estimatedTime);
-        let difference = timeStop - timeStart;
-        difference = difference / 60 / 1000;
-
-        if (difference <= 0) {
-          difference = 1;
-        }
-
-        times.push(`${difference} min`);
+        times.push(timeDifference(delay[i].estimatedTime));
         routeIds.push(delay[i].routeId);
         headsigns.push(delay[i].headsign);
       }
