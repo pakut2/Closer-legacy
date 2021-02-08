@@ -71,7 +71,9 @@ const app = () => {
       input = input.slice(0, -1);
 
       const isDuplicate = direct.some(
-        (n) => latinize(n.toLowerCase()) === latinize(input.toLowerCase())
+        (n) =>
+          latinize(n.toLowerCase()) ===
+          latinize(`${input} ${code}`.toLowerCase())
       );
 
       if (isDuplicate) {
