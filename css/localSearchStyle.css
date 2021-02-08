@@ -3,6 +3,10 @@ li:nth-of-type(3) {
   transform: scale(1.3);
 }
 
+.stop-container {
+  margin-top: 1.5rem;
+}
+
 .distance-div {
   color: rgb(238, 235, 235);
   background: #f54538;

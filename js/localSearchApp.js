@@ -190,7 +190,9 @@ const errorCallback = (error) => {
 
 const app = () => {
   if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
+      enableHighAccuracy: true,
+    });
   }
 
   let timer = setTimeout(() => {
