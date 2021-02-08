@@ -17,88 +17,6 @@ window.addEventListener("load", () => {
   window.addEventListener("online", handleConnection);
 });
 
-const dragAndDrop = () => {
-  let draggables = document.querySelectorAll(".card");
-  const container = document.querySelector(".stop-list");
-
-  draggables.forEach((draggable) => {
-    draggable.addEventListener("dragstart", () => {
-      draggable.classList.add("dragging");
-    });
-
-    draggable.addEventListener("dragend", () => {
-      draggable.classList.remove("dragging");
-    });
-
-    // let timer;
-    // let touchDuration = 1000;
-    // draggable.addEventListener("touchstart", () => {
-    //   timer = setTimeout(() => {
-    //     if (window.innerWidth <= 768) {
-    //       draggable.setAttribute("draggable", "true");
-    //       draggable.classList.add("dragging");
-    //     }
-    //   }, touchDuration);
-    //   draggable.addEventListener("touchend", () => {
-    //     if (timer) {
-    //       clearTimeout(timer);
-    //       draggable.setAttribute("draggable", "false");
-    //       draggable.classList.remove("dragging");
-    //     }
-    //   });
-    // });
-  });
-
-  container.addEventListener("dragover", (e) => {
-    e.preventDefault();
-
-    const afterElement = getDragAfterElement(container, e.clientY);
-    const draggable = document.querySelector(".dragging");
-    container.appendChild(draggable);
-    if (afterElement == null) {
-      container.appendChild(draggable);
-    } else {
-      container.insertBefore(draggable, afterElement);
-    }
-  });
-
-  const getDragAfterElement = (container, y) => {
-    const draggableElements = [
-      ...container.querySelectorAll(".card:not(.dragging)"),
-    ];
-
-    return draggableElements.reduce(
-      (closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        } else {
-          return closest;
-        }
-      },
-      { offset: Number.NEGATIVE_INFINITY }
-    ).element;
-  };
-
-  container.addEventListener("dragend", (e) => {
-    draggables = document.querySelectorAll(".card");
-    e.preventDefault();
-    terminus = [];
-    directions = [];
-
-    draggables.forEach((draggable) => {
-      let stop = draggable.children;
-
-      terminus.push(stop[0].innerText);
-      directions.push(stop[3].innerText);
-
-      localStorage.setItem("terminus", JSON.stringify(terminus));
-      localStorage.setItem("directions", JSON.stringify(directions));
-    });
-  });
-};
-
 const app = () => {
   const searchButton = document.querySelector(".submit-button");
   const stopInput = document.querySelector(".stop-input");
@@ -666,6 +584,10 @@ const app = () => {
   };
 
   document.addEventListener("DOMContentLoaded", getTerminus);
+
+  let timer = setTimeout(() => {
+    location.reload();
+  }, 60000);
 };
 
 app();

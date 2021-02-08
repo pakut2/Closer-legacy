@@ -195,7 +195,7 @@ const app = () => {
 
   let timer = setTimeout(() => {
     location.reload();
-  }, 30000);
+  }, 60000);
 };
 
 app();
