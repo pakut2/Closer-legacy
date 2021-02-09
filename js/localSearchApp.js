@@ -70,6 +70,8 @@ const successCallback = (position) => {
         dataArr.push(Math.round(distance));
         dataArr.push(ID);
         dataArr.push(stops[i].stopName);
+        dataArr.push(stops[i].stopLon);
+        dataArr.push(stops[i].stopLat);
         array.push(dataArr);
         dataArr = [];
       }
@@ -87,7 +89,7 @@ const successCallback = (position) => {
 
   const getTimeData = async () => {
     const array = await getIdData();
-    // console.log(array.sort(sortFunction));
+    //console.log(array.sort(sortFunction));
     array.sort(sortFunction);
 
     for (let i = 0; i < array.length - 1; i++) {
@@ -134,6 +136,11 @@ const successCallback = (position) => {
       stopNameSpan.classList.add("stop-name-span");
       stopNameDiv.appendChild(stopNameSpan);
 
+      const mapShowButton = document.createElement("button");
+      mapShowButton.classList.add("map-show-button");
+      mapShowButton.innerHTML = "<i class='fas fa-map-marker-alt'></i>";
+      stopNameDiv.appendChild(mapShowButton);
+
       const scheduleDiv = document.createElement("div");
       scheduleDiv.classList.add("schedule-div");
       cardDiv.appendChild(scheduleDiv);
@@ -174,6 +181,20 @@ const successCallback = (position) => {
       distanceSpan.classList.add("distance-span");
       distanceDiv.appendChild(distanceSpan);
 
+      const coordsContainer = document.createElement("div");
+      coordsContainer.classList.add("coords-container");
+      cardDiv.appendChild(coordsContainer);
+
+      const lonSpan = document.createElement("span");
+      lonSpan.innerText = array[i][3];
+      lonSpan.classList.add("lon-span");
+      coordsContainer.appendChild(lonSpan);
+
+      const latSpan = document.createElement("span");
+      latSpan.innerText = array[i][4];
+      latSpan.classList.add("lat-span");
+      coordsContainer.appendChild(latSpan);
+
       stopList.appendChild(cardDiv);
     }
   };
@@ -182,6 +203,73 @@ const successCallback = (position) => {
     console.error();
   });
   // getTimeData();
+
+  const mapContainer = document.querySelector(".map-container");
+  const removeMapButton = document.querySelector(".remove-map-button");
+
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
+
+  //show map
+  stopList.addEventListener("click", async (e) => {
+    const item = e.target;
+
+    if (item.classList[0] === "map-show-button") {
+      const schedule = item.parentElement;
+      const card = schedule.parentElement;
+      const coordsContainer = card.children[3];
+      const stopLon = coordsContainer.children[0].innerText;
+      const stopLat = coordsContainer.children[1].innerText;
+
+      const center = [stopLon, stopLat];
+
+      removeMapButton.classList.remove("indicator");
+
+      const mapDiv = document.createElement("div");
+      mapDiv.id = "map";
+      mapContainer.appendChild(mapDiv);
+
+      let cards = document.querySelectorAll(".card");
+
+      cards.forEach((card) => {
+        card.classList.add("indicator");
+      });
+
+      setUpMap(center);
+    }
+  });
+
+  removeMapButton.addEventListener("click", () => {
+    removeMapButton.classList.add("indicator");
+
+    const mapBox = document.getElementById("map");
+    mapBox.remove();
+    mapboxgl.clearStorage();
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+      card.classList.remove("indicator");
+    });
+  });
+
+  const setUpMap = (center) => {
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: center,
+      zoom: 17,
+    });
+
+    const marker = new mapboxgl.Marker({
+      color: "#f54538",
+    })
+      .setLngLat([center[0], center[1]])
+      .addTo(map);
+
+    const nav = new mapboxgl.NavigationControl();
+    map.addControl(nav);
+  };
 };
 
 const errorCallback = (error) => {
@@ -195,9 +283,9 @@ const app = () => {
     });
   }
 
-  let timer = setTimeout(() => {
-    location.reload();
-  }, 60000);
+  // let timer = setTimeout(() => {
+  //   location.reload();
+  // }, 60000);
 };
 
 app();

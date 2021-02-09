@@ -7,6 +7,10 @@ li:nth-of-type(3) {
   margin-top: 1.5rem;
 }
 
+.card {
+  cursor: auto;
+}
+
 .distance-div {
   color: rgb(238, 235, 235);
   background: #f54538;
@@ -17,4 +21,61 @@ li:nth-of-type(3) {
   padding: 0.5rem;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.coords-container span {
+  opacity: 0;
+}
+
+.map-show-button {
+  color: white;
+  font-size: 24px;
+  background: #080808;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 5%;
+}
+.map-show-button:hover,
+.remove-map-button:hover {
+  color: #f54538;
+}
+.fa-map-marker-alt,
+.fa-times {
+  pointer-events: none;
+}
+
+.map-container {
+  position: relative;
+}
+
+.remove-map-button {
+  color: white;
+  font-size: 32px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 0;
+}
+
+#map {
+  width: 60vw;
+  height: 60vh;
+  top: 3rem;
+}
+
+@media screen and (max-width: 1024px) {
+  #map {
+    width: 80vw;
+    height: 80vh;
+    position: relative;
+    left: 10%;
+  }
+
+  .remove-map-button {
+    right: 10%;
+  }
 }
