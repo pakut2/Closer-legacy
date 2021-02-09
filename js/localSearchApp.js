@@ -211,7 +211,7 @@ const successCallback = (position) => {
     "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
 
   //show map
-  stopList.addEventListener("click", async (e) => {
+  stopList.addEventListener("click", (e) => {
     const item = e.target;
 
     if (item.classList[0] === "map-show-button") {
