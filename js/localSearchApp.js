@@ -259,7 +259,7 @@ const successCallback = (position) => {
   const setUpMap = (center, position) => {
     const map = new mapboxgl.Map({
       container: "map",
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/dark-v9",
       center: center,
       zoom: 15,
     });

@@ -37,8 +37,7 @@ li:nth-of-type(3) {
   position: absolute;
   right: 5%;
 }
-.map-show-button:hover,
-.remove-map-button:hover {
+.map-show-button:hover {
   color: #f54538;
 }
 .fa-map-marker-alt,
@@ -53,12 +52,19 @@ li:nth-of-type(3) {
 .remove-map-button {
   color: white;
   font-size: 32px;
-  background: rgba(0, 0, 0, 0);
+  background: #f54538;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   position: absolute;
-  right: 0;
+  top: 10.5%;
+  z-index: 1;
+  width: 3rem;
+  height: 3rem;
+}
+.remove-map-button:hover {
+  color: #f54538;
+  background: rgba(0, 0, 0, 0);
 }
 
 #map {
@@ -73,9 +79,12 @@ li:nth-of-type(3) {
     height: 80vh;
     position: relative;
     left: 10%;
+    top: 1rem;
   }
 
   .remove-map-button {
-    right: 10%;
+    left: 10%;
+    top: 1rem;
+    padding-top: 1%;
   }
 }
