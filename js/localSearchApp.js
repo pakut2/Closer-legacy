@@ -222,6 +222,7 @@ const successCallback = (position) => {
       const stopLat = coordsContainer.children[1].innerText;
 
       const center = [stopLon, stopLat];
+      const position = [lon1, lat1];
 
       removeMapButton.classList.remove("indicator");
 
@@ -235,10 +236,11 @@ const successCallback = (position) => {
         card.classList.add("indicator");
       });
 
-      setUpMap(center);
+      setUpMap(center, position);
     }
   });
 
+  //remove map
   removeMapButton.addEventListener("click", () => {
     removeMapButton.classList.add("indicator");
 
@@ -253,18 +255,25 @@ const successCallback = (position) => {
     });
   });
 
-  const setUpMap = (center) => {
+  //set up map
+  const setUpMap = (center, position) => {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11",
       center: center,
-      zoom: 17,
+      zoom: 15,
     });
 
-    const marker = new mapboxgl.Marker({
+    const stopMarker = new mapboxgl.Marker({
       color: "#f54538",
     })
-      .setLngLat([center[0], center[1]])
+      .setLngLat(center)
+      .addTo(map);
+
+    const locationMarker = new mapboxgl.Marker({
+      color: "#22c9eb",
+    })
+      .setLngLat(position)
       .addTo(map);
 
     const nav = new mapboxgl.NavigationControl();
