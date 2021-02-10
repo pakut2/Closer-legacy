@@ -8,8 +8,9 @@ const timeDifference = (departureTime) => {
   difference = difference / 60 / 1000;
 
   if (difference <= 0) {
-    difference = 1;
+    difference = "Now";
+    return difference;
+  } else {
+    return `${difference} min`;
   }
-
-  return `${difference} min`;
 };
