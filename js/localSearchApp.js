@@ -206,6 +206,7 @@ const successCallback = (position) => {
 
   const mapContainer = document.querySelector(".map-container");
   const removeMapButton = document.querySelector(".remove-map-button");
+  const recenterMapButton = document.querySelector(".recenter-button");
 
   mapboxgl.accessToken =
     "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
@@ -225,6 +226,7 @@ const successCallback = (position) => {
       const position = [lon1, lat1];
 
       removeMapButton.classList.remove("indicator");
+      recenterMapButton.classList.remove("indicator");
 
       const mapDiv = document.createElement("div");
       mapDiv.id = "map";
@@ -243,6 +245,7 @@ const successCallback = (position) => {
   //remove map
   removeMapButton.addEventListener("click", () => {
     removeMapButton.classList.add("indicator");
+    recenterMapButton.classList.add("indicator");
 
     const mapBox = document.getElementById("map");
     mapBox.remove();
@@ -259,7 +262,7 @@ const successCallback = (position) => {
   const setUpMap = (center, position) => {
     const map = new mapboxgl.Map({
       container: "map",
-      style: "mapbox://styles/mapbox/dark-v9",
+      style: "mapbox://styles/mapbox/dark-v10",
       center: center,
       zoom: 15,
     });
@@ -278,6 +281,13 @@ const successCallback = (position) => {
 
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav);
+
+    recenterMapButton.addEventListener("click", () => {
+      map.flyTo({
+        center: position,
+        essential: true,
+      });
+    });
   };
 };
 
