@@ -159,7 +159,10 @@ const successCallback = (position) => {
       const dirSpan = document.createElement("span");
       // dirSpan.innerText = headsigns.join("\n");
       if (headsigns.length === 0) {
-        scheduleDiv.style.paddingLeft = 0;
+        if (window.innerWidth <= 1024) {
+          scheduleDiv.style.display = "flex";
+          scheduleDiv.style.justifyContent = "center";
+        }
         dirSpan.innerText = "No courses available now.";
       } else {
         dirSpan.innerText = headsigns.join("\n");

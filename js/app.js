@@ -164,9 +164,11 @@ const app = () => {
       const dirSpan = document.createElement("span");
       // dirSpan.innerText = headsigns.join("\n");
       if (headsigns.length === 0) {
-        scheduleDiv.style.paddingLeft = 0;
+        if (window.innerWidth <= 1024) {
+          scheduleDiv.style.display = "flex";
+          scheduleDiv.style.justifyContent = "center";
+        }
         dirSpan.innerText = "No courses available now.";
-        dirSpan.style.width = "100%";
       } else {
         dirSpan.style.width = "auto";
         dirSpan.innerText = headsigns.join("\n");
@@ -364,15 +366,17 @@ const app = () => {
 
       reverseSchedule[0].innerText = routeIds.join("\n");
       if (headsigns.length === 0) {
-        reverseSchedule[1].parentElement.style.paddingLeft = 0;
+        if (window.innerWidth <= 1024) {
+          reverseSchedule[1].parentElement.style.display = "flex";
+          reverseSchedule[1].parentElement.style.justifyContent = "center";
+          reverseSchedule[1].style.width = "100%";
+        }
         reverseSchedule[1].innerText = "No courses available now.";
-        reverseSchedule[1].style.width = "100%";
         reverseSchedule[0].innerText = "";
         reverseSchedule[2].innerText = "";
       } else {
-        reverseSchedule[1].style.width = "auto";
+        reverseSchedule[1].parentElement.style.display = "grid";
         reverseSchedule[1].innerText = headsigns.join("\n");
-        reverseSchedule[1].parentElement.style.paddingLeft = "7%";
       }
       reverseSchedule[2].innerText = times.join("\n");
     }
@@ -515,7 +519,10 @@ const app = () => {
       const dirSpan = document.createElement("span");
       // dirSpan.innerText = headsigns.join("\n");
       if (headsigns.length === 0) {
-        scheduleDiv.style.paddingLeft = 0;
+        if (window.innerWidth <= 1024) {
+          scheduleDiv.style.display = "flex";
+          scheduleDiv.style.justifyContent = "center";
+        }
         dirSpan.innerText = "No courses available now.";
       } else {
         dirSpan.innerText = headsigns.join("\n");

@@ -7,6 +7,10 @@ const timeDifference = (departureTime) => {
   let difference = timeStop - timeStart;
   difference = difference / 60 / 1000;
 
+  if (navigator.userAgent.includes("SamsungBrowser")) {
+    return departureTime;
+  }
+
   if (difference <= 0) {
     difference = "Now";
     return difference;
