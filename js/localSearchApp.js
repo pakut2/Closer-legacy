@@ -285,6 +285,7 @@ const successCallback = (position) => {
     recenterMapButton.addEventListener("click", () => {
       map.flyTo({
         center: position,
+        zoom: 15,
         essential: true,
       });
     });

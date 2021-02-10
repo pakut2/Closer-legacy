@@ -103,4 +103,7 @@ li:nth-of-type(3) {
     left: 12%;
     bottom: 5%;
   }
+  .recenter-button:hover {
+    color: white;
+  }
 }
