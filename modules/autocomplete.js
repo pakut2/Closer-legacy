@@ -591,7 +591,6 @@ const busStops = [
   "Zosi",
   "Zwierzyniecka",
   "Złota Karczma",
-  "al. Płażyńskiego",
   "Łabędzia",
   "Łagiewniki",
   "Łanowa I",

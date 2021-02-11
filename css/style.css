@@ -284,6 +284,7 @@ form button:hover {
 .schedule-div span {
   margin-left: 2%;
   text-align: center;
+  white-space: nowrap;
 }
 .schedule-div span::first-line {
   font-weight: bold;

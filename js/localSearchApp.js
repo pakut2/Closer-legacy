@@ -109,7 +109,11 @@ const successCallback = (position) => {
       for (let i = 0; i < delay.length; i++) {
         times.push(timeDifference(delay[i].estimatedTime));
         routeIds.push(delay[i].routeId);
-        headsigns.push(delay[i].headsign);
+        if (window.innerWidth <= 1024) {
+          headsigns.push(short(delay[i].headsign));
+        } else {
+          headsigns.push(delay[i].headsign);
+        }
       }
       routeIds.push(" ");
       times.push(" ");
