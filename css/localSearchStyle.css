@@ -27,8 +27,7 @@ li:nth-of-type(3) {
   opacity: 0;
 }
 
-.map-show-button,
-.recenter-button {
+.map-show-button {
   color: white;
   font-size: 24px;
   background: #080808;
@@ -38,22 +37,12 @@ li:nth-of-type(3) {
   position: absolute;
   right: 5%;
 }
-.map-show-button:hover,
-.recenter-button:hover {
+.map-show-button:hover {
   color: #f54538;
 }
 .fa-map-marker-alt,
-.fa-times,
-.fa-chevron-circle-up {
+.fa-times {
   pointer-events: none;
-}
-
-.recenter-button {
-  font-size: 28px;
-  background: rgba(0, 0, 0, 0);
-  left: 1.2%;
-  bottom: 0;
-  z-index: 1;
 }
 
 .map-container {
@@ -97,13 +86,5 @@ li:nth-of-type(3) {
     left: 10%;
     top: 1rem;
     padding-top: 1%;
-  }
-
-  .recenter-button {
-    left: 12%;
-    bottom: 5%;
-  }
-  .recenter-button:hover {
-    color: white;
   }
 }

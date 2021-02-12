@@ -213,7 +213,6 @@ const successCallback = (position) => {
 
   const mapContainer = document.querySelector(".map-container");
   const removeMapButton = document.querySelector(".remove-map-button");
-  const recenterMapButton = document.querySelector(".recenter-button");
 
   mapboxgl.accessToken =
     "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
@@ -230,10 +229,8 @@ const successCallback = (position) => {
       const stopLat = coordsContainer.children[1].innerText;
 
       const center = [stopLon, stopLat];
-      const position = [lon1, lat1];
 
       removeMapButton.classList.remove("indicator");
-      recenterMapButton.classList.remove("indicator");
 
       const mapDiv = document.createElement("div");
       mapDiv.id = "map";
@@ -245,14 +242,17 @@ const successCallback = (position) => {
         card.classList.add("indicator");
       });
 
-      setUpMap(center, position);
+      setUpMap(center);
+
+      // const locationButton = document.querySelector(".mapboxgl-ctrl-geolocate");
+
+      // locationButton.click();
     }
   });
 
   //remove map
   removeMapButton.addEventListener("click", () => {
     removeMapButton.classList.add("indicator");
-    recenterMapButton.classList.add("indicator");
 
     const mapBox = document.getElementById("map");
     mapBox.remove();
@@ -266,7 +266,7 @@ const successCallback = (position) => {
   });
 
   //set up map
-  const setUpMap = (center, position) => {
+  const setUpMap = (center) => {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/dark-v10",
@@ -280,22 +280,17 @@ const successCallback = (position) => {
       .setLngLat(center)
       .addTo(map);
 
-    const locationMarker = new mapboxgl.Marker({
-      color: "#22c9eb",
-    })
-      .setLngLat(position)
-      .addTo(map);
-
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav);
 
-    recenterMapButton.addEventListener("click", () => {
-      map.flyTo({
-        center: position,
-        zoom: 15,
-        essential: true,
-      });
-    });
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
   };
 };
 
