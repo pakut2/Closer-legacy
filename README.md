@@ -8,4 +8,4 @@
 
 - Local Search displays all stops in 500m radius
 
-## https://pakut2.ddns.net
+[Feel free to check it out here](https://pakut2.ddns.net)
