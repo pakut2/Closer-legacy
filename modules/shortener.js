@@ -44,6 +44,11 @@ const short = (stop) => {
     return stop;
   }
 
+  if (stop === "Chełm Cienista") {
+    stop = "Chełm Cien.";
+    return stop;
+  }
+
   if (stop.includes(" ") && stop.length > 13) {
     const words = stop.split(" ");
 

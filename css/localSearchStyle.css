@@ -79,7 +79,6 @@ li:nth-of-type(3) {
   background: #f54538;
   position: absolute;
   bottom: -5%;
-  /* left: 40%; */
   z-index: 1;
   padding: 1rem;
   border-radius: 2rem;

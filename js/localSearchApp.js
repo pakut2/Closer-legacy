@@ -256,10 +256,6 @@ const successCallback = (position) => {
       });
 
       setUpMap(center);
-
-      // const locationButton = document.querySelector(".mapboxgl-ctrl-geolocate");
-
-      // locationButton.click();
     }
   });
 
