@@ -460,7 +460,6 @@ const busStops = [
   "Sandomierska",
   "Sarnia",
   "Saturna",
-  'Schronisko dla zwierząt "Promyk"',
   "Schuberta",
   "Schumana",
   "Siedlce",

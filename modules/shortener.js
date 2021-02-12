@@ -1,5 +1,50 @@
 const short = (stop) => {
-  if (stop.includes(" ") && stop.length > 12) {
+  if (stop === "Wały Piastowskie") {
+    stop = "Wały Piast.";
+    return stop;
+  }
+
+  if (stop === "Dworzec Główny") {
+    stop = "Dworzec Gł.";
+    return stop;
+  }
+
+  if (stop === "Os. Barniewice") {
+    stop = "Os. Barniewice";
+    return stop;
+  }
+
+  if (stop === "Olszynka Szkoła") {
+    stop = "Olszynka Sz.";
+    return stop;
+  }
+
+  if (stop === "Górki Zachodnie") {
+    stop = "Górki Zach.";
+    return stop;
+  }
+
+  if (stop === "Górki Wschodnie") {
+    stop = "Górki Wsch.";
+    return stop;
+  }
+
+  if (stop === 'Sopot "Leśnik"') {
+    stop = "Sopot Leśnik";
+    return stop;
+  }
+
+  if (stop === "Urząd Skarbowy") {
+    stop = "Urząd Skarb.";
+    return stop;
+  }
+
+  if (stop === "Osiedle Wschód") {
+    stop = "Osiedle Wsch.";
+    return stop;
+  }
+
+  if (stop.includes(" ") && stop.length > 13) {
     const words = stop.split(" ");
 
     if (words.length === 2) {
