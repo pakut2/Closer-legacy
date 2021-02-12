@@ -57,7 +57,7 @@ const successCallback = (position) => {
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    const { stops, stopId, stopName, stopLat, stopLon } = data;
+    const { stops, stopId, stopName, stopLat, stopLon, stopCode } = data;
 
     let array = [];
     let dataArr = [];
@@ -72,6 +72,7 @@ const successCallback = (position) => {
         dataArr.push(stops[i].stopName);
         dataArr.push(stops[i].stopLon);
         dataArr.push(stops[i].stopLat);
+        dataArr.push(stops[i].stopCode);
         array.push(dataArr);
         dataArr = [];
       }
@@ -202,6 +203,11 @@ const successCallback = (position) => {
       latSpan.classList.add("lat-span");
       coordsContainer.appendChild(latSpan);
 
+      const codeSpan = document.createElement("span");
+      codeSpan.innerText = array[i][5];
+      codeSpan.classList.add("code-span");
+      coordsContainer.appendChild(codeSpan);
+
       stopList.appendChild(cardDiv);
     }
   };
@@ -213,6 +219,7 @@ const successCallback = (position) => {
 
   const mapContainer = document.querySelector(".map-container");
   const removeMapButton = document.querySelector(".remove-map-button");
+  const stopInfo = document.querySelector(".stop-info");
 
   mapboxgl.accessToken =
     "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
@@ -227,10 +234,16 @@ const successCallback = (position) => {
       const coordsContainer = card.children[3];
       const stopLon = coordsContainer.children[0].innerText;
       const stopLat = coordsContainer.children[1].innerText;
+      const stopCode = coordsContainer.children[2].innerText;
+      const stopName = schedule.children[0].innerText;
+
+      const stopInfoSpan = document.querySelector(".stop-info-span");
+      stopInfoSpan.innerText = `${stopName} ${stopCode}`;
 
       const center = [stopLon, stopLat];
 
       removeMapButton.classList.remove("indicator");
+      stopInfo.classList.remove("indicator");
 
       const mapDiv = document.createElement("div");
       mapDiv.id = "map";
@@ -253,6 +266,7 @@ const successCallback = (position) => {
   //remove map
   removeMapButton.addEventListener("click", () => {
     removeMapButton.classList.add("indicator");
+    stopInfo.classList.add("indicator");
 
     const mapBox = document.getElementById("map");
     mapBox.remove();
