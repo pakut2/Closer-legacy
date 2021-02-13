@@ -203,6 +203,11 @@ const successCallback = (position) => {
       latSpan.classList.add("lat-span");
       coordsContainer.appendChild(latSpan);
 
+      const idSpan = document.createElement("span");
+      idSpan.innerText = ID;
+      idSpan.classList.add("id-span");
+      coordsContainer.appendChild(idSpan);
+
       stopList.appendChild(cardDiv);
     }
   };
@@ -212,6 +217,42 @@ const successCallback = (position) => {
   });
   // getTimeData();
 
+  //get vehicle ids
+  const getVehicleCodes = async (ID) => {
+    const API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+    const { delay, vehicleCode } = data;
+
+    let vehicleCodes = [];
+
+    for (let i = 0; i < delay.length; i++) {
+      vehicleCodes.push(delay[i].vehicleCode);
+    }
+    return vehicleCodes;
+  };
+
+  //get vehicle details for popup
+  const getTripDetails = async (ID) => {
+    const API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+    const { delay, headsign, routeId } = data;
+
+    let array = [];
+    let details = [];
+
+    for (let i = 0; i < delay.length; i++) {
+      details.push(delay[i].routeId);
+      details.push(delay[i].headsign);
+      array.push(details);
+      details = [];
+    }
+    return array;
+  };
+
   const mapContainer = document.querySelector(".map-container");
   const removeMapButton = document.querySelector(".remove-map-button");
   const stopInfo = document.querySelector(".stop-info");
@@ -219,16 +260,44 @@ const successCallback = (position) => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoicGFrdXQyIiwiYSI6ImNra3gxenFlcjAyYmgyb3AwbmdvYjg5cHoifQ.dEXAMvHoWip_DE7rJPoDhQ";
 
-  //show map
-  stopList.addEventListener("click", (e) => {
+  stopList.addEventListener("click", async (e) => {
     const item = e.target;
 
+    //get lat and lon of vehicles
+    const getBusLocation = async (ID) => {
+      const codes = await getVehicleCodes(ID);
+
+      const API_URL = "https://ckan2.multimediagdansk.pl/gpsPositions";
+      const response = await fetch(API_URL);
+      const data = await response.json();
+
+      const { Vehicles, VehicleCode, Lon, Lat } = data;
+
+      let buses = [];
+      let busCoords = [];
+
+      for (let i = 0; i < codes.length; i++) {
+        for (let j = 0; j < Vehicles.length; j++) {
+          if (Vehicles[j].VehicleCode === codes[i].toString()) {
+            buses.push(Vehicles[j].Lon);
+            buses.push(Vehicles[j].Lat);
+            busCoords.push(buses);
+            buses = [];
+          }
+        }
+      }
+
+      return busCoords;
+    };
+
+    //display map
     if (item.classList[0] === "map-show-button") {
       const schedule = item.parentElement;
       const card = schedule.parentElement;
       const coordsContainer = card.children[3];
       const stopLon = coordsContainer.children[0].innerText;
       const stopLat = coordsContainer.children[1].innerText;
+      const ID = coordsContainer.children[2].innerText;
       const stopName = schedule.children[0].innerText;
 
       const stopInfoSpan = document.querySelector(".stop-info-span");
@@ -249,53 +318,111 @@ const successCallback = (position) => {
         card.classList.add("indicator");
       });
 
-      setUpMap(center);
+      //map setup
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/dark-v10",
+        center: center,
+        zoom: 15,
+      });
+
+      const stopMarker = new mapboxgl.Marker({
+        color: "#f54538",
+      })
+        .setLngLat(center)
+        .addTo(map);
+
+      const nav = new mapboxgl.NavigationControl();
+      map.addControl(nav);
+
+      map.addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+        })
+      );
+
+      //update bus icons
+      const updateMap = async (coords) => {
+        const details = await getTripDetails(ID);
+
+        const geojson = {
+          type: "FeatureCollection",
+          features: [],
+        };
+
+        for (let i = 0; i < coords.length; i++) {
+          let stop = {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [coords[i][0], coords[i][1]],
+            },
+            properties: {
+              title: details[i][0],
+              description: details[i][1],
+            },
+          };
+
+          geojson.features.push(stop);
+        }
+
+        const markers = document.querySelectorAll(".marker");
+
+        markers.forEach((marker) => {
+          marker.remove();
+        });
+
+        geojson.features.forEach(function (marker) {
+          const element = document.createElement("div");
+          element.innerHTML = '<i class="fas fa-bus"></i>';
+          element.className = "marker";
+
+          new mapboxgl.Marker(element)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(
+              new mapboxgl.Popup({ offset: 25 }).setHTML(
+                "<h3>" +
+                  marker.properties.title +
+                  "</h3><p>" +
+                  marker.properties.description +
+                  "</p>"
+              )
+            )
+            .addTo(map);
+        });
+      };
+
+      const coords = await getBusLocation(ID);
+      updateMap(coords);
+
+      const timer = setInterval(async () => {
+        let coords = await getBusLocation(ID);
+        updateMap(coords);
+      }, 5000);
+
+      //remove map
+      removeMapButton.addEventListener("click", () => {
+        removeMapButton.classList.add("indicator");
+        stopInfo.classList.add("indicator");
+        clearInterval(timer);
+
+        const mapBox = document.getElementById("map");
+        mapBox.remove();
+        mapboxgl.clearStorage();
+
+        let cards = document.querySelectorAll(".card");
+
+        cards.forEach((card) => {
+          card.classList.remove("indicator");
+          card.remove();
+        });
+        getTimeData();
+      });
     }
   });
-
-  //remove map
-  removeMapButton.addEventListener("click", () => {
-    removeMapButton.classList.add("indicator");
-    stopInfo.classList.add("indicator");
-
-    const mapBox = document.getElementById("map");
-    mapBox.remove();
-    mapboxgl.clearStorage();
-
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach((card) => {
-      card.classList.remove("indicator");
-    });
-  });
-
-  //set up map
-  const setUpMap = (center) => {
-    const map = new mapboxgl.Map({
-      container: "map",
-      style: "mapbox://styles/mapbox/dark-v10",
-      center: center,
-      zoom: 15,
-    });
-
-    const stopMarker = new mapboxgl.Marker({
-      color: "#f54538",
-    })
-      .setLngLat(center)
-      .addTo(map);
-
-    const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav);
-
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-      })
-    );
-  };
 };
 
 const errorCallback = (error) => {
