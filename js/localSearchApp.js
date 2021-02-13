@@ -137,7 +137,7 @@ const successCallback = (position) => {
       cardDiv.appendChild(stopNameDiv);
 
       const stopNameSpan = document.createElement("span");
-      stopNameSpan.innerText = array[i][2];
+      stopNameSpan.innerText = `${array[i][2]} ${array[i][5]}`;
       stopNameSpan.classList.add("stop-name-span");
       stopNameDiv.appendChild(stopNameSpan);
 
@@ -203,11 +203,6 @@ const successCallback = (position) => {
       latSpan.classList.add("lat-span");
       coordsContainer.appendChild(latSpan);
 
-      const codeSpan = document.createElement("span");
-      codeSpan.innerText = array[i][5];
-      codeSpan.classList.add("code-span");
-      coordsContainer.appendChild(codeSpan);
-
       stopList.appendChild(cardDiv);
     }
   };
@@ -234,11 +229,10 @@ const successCallback = (position) => {
       const coordsContainer = card.children[3];
       const stopLon = coordsContainer.children[0].innerText;
       const stopLat = coordsContainer.children[1].innerText;
-      const stopCode = coordsContainer.children[2].innerText;
       const stopName = schedule.children[0].innerText;
 
       const stopInfoSpan = document.querySelector(".stop-info-span");
-      stopInfoSpan.innerText = `${stopName} ${stopCode}`;
+      stopInfoSpan.innerText = stopName;
 
       const center = [stopLon, stopLat];
 
