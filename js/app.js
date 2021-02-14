@@ -73,7 +73,8 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName) === latinize(input) &&
+          latinize(stops[i].stopName.toString().toLowerCase()) ===
+            latinize(input.toString().toLowerCase()) &&
           stops[i].stopCode === "01" &&
           stops[i].zoneId === 1
         ) {
@@ -604,9 +605,15 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getTerminus);
 
-  let timer = setTimeout(() => {
-    location.reload();
-  }, 60000);
+  window.setInterval(() => {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+      card.remove();
+    });
+
+    getTerminus();
+  }, 30000);
 };
 
 app();

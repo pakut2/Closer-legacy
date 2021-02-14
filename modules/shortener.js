@@ -49,6 +49,11 @@ const short = (stop) => {
     return stop;
   }
 
+  if (stop === "Galeria Bałtycka") {
+    stop = "Galeria Bał.";
+    return stop;
+  }
+
   if (stop.includes(" ") && stop.length > 13) {
     const words = stop.split(" ");
 

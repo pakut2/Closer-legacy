@@ -67,7 +67,7 @@ const app = () => {
         input += " ";
       }
 
-      stopInput.value = input;
+      stopInput.value = input.toString().toLowerCase();
       input = input.slice(0, -1);
 
       const isDuplicate = direct.some(
@@ -83,7 +83,8 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName) === latinize(input) &&
+          latinize(stops[i].stopName.toString().toLowerCase()) ===
+            latinize(input.toString().toLowerCase()) &&
           stops[i].stopCode === code &&
           stops[i].zoneId === 1
         ) {
@@ -425,9 +426,15 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getDirect);
 
-  let timer = setTimeout(() => {
-    location.reload();
-  }, 60000);
+  window.setInterval(() => {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+      card.remove();
+    });
+
+    getDirect();
+  }, 30000);
 };
 
 app();

@@ -245,7 +245,15 @@ const successCallback = (position) => {
     let details = [];
 
     for (let i = 0; i < delay.length; i++) {
-      details.push(delay[i].routeId);
+      let value = delay[i].routeId.toString();
+      let value1 = value.charAt(0);
+      if (value1 === "4" && value.length > 1) {
+        value = value.slice(1);
+        value1 = "N" + value;
+        details.push(value1);
+      } else {
+        details.push(delay[i].routeId);
+      }
       details.push(delay[i].headsign);
       array.push(details);
       details = [];
@@ -323,7 +331,7 @@ const successCallback = (position) => {
         container: "map",
         style: "mapbox://styles/mapbox/dark-v10",
         center: center,
-        zoom: 15,
+        zoom: 13,
       });
 
       const stopMarker = new mapboxgl.Marker({
@@ -423,6 +431,20 @@ const successCallback = (position) => {
       });
     }
   });
+
+  window.setInterval(() => {
+    const cards = document.querySelectorAll(".card");
+
+    if (cards[0].classList.contains("indicator") === false) {
+      cards.forEach((card) => {
+        card.remove();
+      });
+
+      getTimeData();
+    } else {
+      window.clearInterval();
+    }
+  }, 30000);
 };
 
 const errorCallback = (error) => {
@@ -435,10 +457,6 @@ const app = () => {
       enableHighAccuracy: true,
     });
   }
-
-  // let timer = setTimeout(() => {
-  //   location.reload();
-  // }, 60000);
 };
 
 app();
