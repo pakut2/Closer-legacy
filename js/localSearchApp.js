@@ -239,7 +239,7 @@ const successCallback = (position) => {
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    const { delay, headsign, routeId } = data;
+    const { delay, headsign, routeId, estimatedTime } = data;
 
     let array = [];
     let details = [];
@@ -255,6 +255,7 @@ const successCallback = (position) => {
         details.push(delay[i].routeId);
       }
       details.push(delay[i].headsign);
+      details.push(timeDifference(delay[i].estimatedTime));
       array.push(details);
       details = [];
     }
@@ -371,6 +372,7 @@ const successCallback = (position) => {
             properties: {
               title: details[i][0],
               description: details[i][1],
+              time: details[i][2],
             },
           };
 
@@ -392,11 +394,13 @@ const successCallback = (position) => {
             .setLngLat(marker.geometry.coordinates)
             .setPopup(
               new mapboxgl.Popup({ offset: 25 }).setHTML(
-                "<h3>" +
-                  marker.properties.title +
-                  "</h3><p>" +
-                  marker.properties.description +
-                  "</p>"
+                `<h3>
+                  ${marker.properties.title} 
+                  </h3><p>
+                  ${marker.properties.description}
+                  </p><p>
+                  ${marker.properties.time} 
+                  </p>`
               )
             )
             .addTo(map);

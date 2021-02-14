@@ -605,15 +605,15 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getTerminus);
 
-  window.setInterval(() => {
-    const cards = document.querySelectorAll(".card");
+  // window.setInterval(() => {
+  //   const cards = document.querySelectorAll(".card");
 
-    cards.forEach((card) => {
-      card.remove();
-    });
+  //   cards.forEach((card) => {
+  //     card.remove();
+  //   });
 
-    getTerminus();
-  }, 30000);
+  //   getTerminus();
+  // }, 30000);
 };
 
 app();

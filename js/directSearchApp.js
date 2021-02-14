@@ -426,15 +426,15 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getDirect);
 
-  window.setInterval(() => {
-    const cards = document.querySelectorAll(".card");
+  // window.setInterval(() => {
+  //   const cards = document.querySelectorAll(".card");
 
-    cards.forEach((card) => {
-      card.remove();
-    });
+  //   cards.forEach((card) => {
+  //     card.remove();
+  //   });
 
-    getDirect();
-  }, 30000);
+  //   getDirect();
+  // }, 30000);
 };
 
 app();
