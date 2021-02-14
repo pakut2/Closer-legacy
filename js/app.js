@@ -73,8 +73,7 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName.toString().toLowerCase()) ===
-            latinize(input.toString().toLowerCase()) &&
+          latinize(stops[i].stopName) === latinize(input) &&
           stops[i].stopCode === "01" &&
           stops[i].zoneId === 1
         ) {

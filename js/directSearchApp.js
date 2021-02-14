@@ -67,7 +67,7 @@ const app = () => {
         input += " ";
       }
 
-      stopInput.value = input.toString().toLowerCase();
+      stopInput.value = input.toLowerCase();
       input = input.slice(0, -1);
 
       const isDuplicate = direct.some(
@@ -83,8 +83,7 @@ const app = () => {
 
       for (let i = 0; i < stops.length; i++) {
         if (
-          latinize(stops[i].stopName.toString().toLowerCase()) ===
-            latinize(input.toString().toLowerCase()) &&
+          latinize(stops[i].stopName) === latinize(input) &&
           stops[i].stopCode === code &&
           stops[i].zoneId === 1
         ) {
