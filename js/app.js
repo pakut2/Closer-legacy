@@ -210,6 +210,11 @@ const app = () => {
 
       saveLocalDirections(zoneIdSpan.innerText);
 
+      const idSpan = document.createElement("span");
+      idSpan.innerText = ID;
+      idSpan.classList.add("id-span");
+      zoneIdContainer.appendChild(idSpan);
+
       stopList.appendChild(cardDiv);
       dragAndDrop();
     };
@@ -277,7 +282,7 @@ const app = () => {
 
       let input = stop;
       let ID;
-      let directionId = stop1[3].innerText;
+      let directionId = stop1[3].children[0].innerText;
 
       let directions;
 
@@ -302,11 +307,11 @@ const app = () => {
             stops[i].zoneId === 1
           ) {
             ID = stops[i].stopId;
-
+            stop1[3].children[1].innerText = ID;
             dataArr = [ID, stops[i].stopName];
-            stop1[3].innerText = "02";
-            stop1[3].classList.add("hidden");
-            directionId = stop1[3].innerText;
+            stop1[3].children[0].innerText = "02";
+            stop1[3].children[0].classList.add("hidden");
+            directionId = stop1[3].children[0].innerText;
             directions[terminus.indexOf(stop)] = directionId;
 
             localStorage.setItem("directions", JSON.stringify(directions));
@@ -321,10 +326,11 @@ const app = () => {
           ) {
             ID = stops[i].stopId;
 
+            stop1[3].children[1].innerText = ID;
             dataArr = [ID, stops[i].stopName];
-            stop1[3].innerText = "01";
-            stop1[3].classList.add("hidden");
-            directionId = stop1[3].innerText;
+            stop1[3].children[0].innerText = "01";
+            stop1[3].children[0].classList.add("hidden");
+            directionId = stop1[3].children[0].innerText;
             directions[terminus.indexOf(stop)] = directionId;
 
             localStorage.setItem("directions", JSON.stringify(directions));
@@ -570,6 +576,11 @@ const app = () => {
       zoneIdSpan.classList.add("zone-id-span");
       zoneIdContainer.appendChild(zoneIdSpan);
 
+      const idSpan = document.createElement("span");
+      idSpan.innerText = ID;
+      idSpan.classList.add("id-span");
+      zoneIdContainer.appendChild(idSpan);
+
       stopList.appendChild(cardDiv);
       dragAndDrop();
     });
@@ -604,15 +615,71 @@ const app = () => {
 
   document.addEventListener("DOMContentLoaded", getTerminus);
 
-  // window.setInterval(() => {
-  //   const cards = document.querySelectorAll(".card");
+  //refreshes data
+  const refresh = () => {
+    const cards = document.querySelectorAll(".card");
 
-  //   cards.forEach((card) => {
-  //     card.remove();
-  //   });
+    cards.forEach((card) => {
+      const schedule = card.children[1];
+      const idSpan = card.children[3];
+      const ID = idSpan.children[1].innerText;
 
-  //   getTerminus();
-  // }, 30000);
+      const getRefreshedData = async (ID) => {
+        let API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
+
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        const { delay, estimatedTime, routeId, headsign } = data;
+
+        for (let i = 0; i < delay.length; i++) {
+          let times = [];
+          let routeIds = [];
+          let headsigns = [];
+          for (let i = 0; i < delay.length; i++) {
+            times.push(timeDifference(delay[i].estimatedTime));
+            routeIds.push(delay[i].routeId);
+            if (window.innerWidth <= 1024) {
+              headsigns.push(short(delay[i].headsign));
+            } else {
+              headsigns.push(delay[i].headsign);
+            }
+          }
+          routeIds.push(" ");
+          times.push(" ");
+
+          for (let i = 0; i < routeIds.length; i++) {
+            let value = routeIds[i].toString();
+            let value1 = value.charAt(0);
+            if (value1 === "4" && value.length > 1) {
+              value = value.slice(1);
+              value1 = "N" + value;
+              routeIds[i] = value1;
+            }
+          }
+
+          if (headsigns.length !== 0) {
+            routeIds.unshift("Line");
+            headsigns.unshift("Direction");
+            times.unshift("Departure");
+          }
+
+          schedule.children[0].innerText = routeIds.join("\n");
+          schedule.children[1].innerText = headsigns.join("\n");
+          schedule.children[2].innerText = times.join("\n");
+        }
+      };
+      getRefreshedData(ID);
+    });
+  };
+
+  window.setInterval(() => {
+    const date = new Date();
+    const currentTime = date.toLocaleTimeString().substring(6);
+    if (currentTime === "00") {
+      refresh();
+    }
+  }, 1000);
 };
 
 app();

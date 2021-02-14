@@ -72,7 +72,7 @@ const dragAndDrop = () => {
       let stop = draggable.children;
 
       terminus.push(stop[0].innerText);
-      directions.push(stop[3].innerText);
+      directions.push(stop[3].children[0].innerText);
 
       localStorage.setItem("terminus", JSON.stringify(terminus));
       localStorage.setItem("directions", JSON.stringify(directions));

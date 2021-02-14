@@ -303,7 +303,8 @@ form button:hover {
   opacity: 0;
 }
 
-.zone-id-span {
+.zone-id-span,
+.id-span {
   opacity: 0;
 }
 

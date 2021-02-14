@@ -436,19 +436,19 @@ const successCallback = (position) => {
     }
   });
 
-  window.setInterval(() => {
-    const cards = document.querySelectorAll(".card");
+  // window.setInterval(() => {
+  //   const cards = document.querySelectorAll(".card");
 
-    if (cards[0].classList.contains("indicator") === false) {
-      cards.forEach((card) => {
-        card.remove();
-      });
+  //   if (cards[0].classList.contains("indicator") === false) {
+  //     cards.forEach((card) => {
+  //       card.remove();
+  //     });
 
-      getTimeData();
-    } else {
-      window.clearInterval();
-    }
-  }, 30000);
+  //     getTimeData();
+  //   } else {
+  //     window.clearInterval();
+  //   }
+  // }, 30000);
 };
 
 const errorCallback = (error) => {
