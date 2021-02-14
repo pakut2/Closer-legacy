@@ -21,6 +21,7 @@ const RUNTIME = "runtime";
 const PRECACHE_URLS = [
   "index.html",
   "css/style.css",
+  "css/searchStyle.css",
   "js/app.js",
   "views/directSearch.html",
   "js/directSearchApp.js",
