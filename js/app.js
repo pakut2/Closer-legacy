@@ -219,10 +219,10 @@ const app = () => {
       dragAndDrop();
     };
 
-    getTimeData().catch((error) => {
-      console.error();
-    });
-    // getTimeData();
+    // getTimeData().catch((error) => {
+    //   console.error();
+    // });
+    getTimeData();
   });
 
   //toggle dragAndDrop on mobile
@@ -631,6 +631,18 @@ const app = () => {
         const data = await response.json();
 
         const { delay, estimatedTime, routeId, headsign } = data;
+
+        if (delay.length === 0) {
+          if (window.innerWidth <= 1024) {
+            schedule.style.display = "flex";
+            schedule.style.justifyContent = "center";
+          }
+          schedule.children[1].innerText = "No courses available now.";
+          schedule.children[0].innerText = "";
+          schedule.children[2].innerText = "";
+        } else {
+          schedule.style.display = "grid";
+        }
 
         for (let i = 0; i < delay.length; i++) {
           let times = [];
