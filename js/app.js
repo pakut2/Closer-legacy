@@ -318,6 +318,9 @@ const app = () => {
           }
         }
       } else if (directionId === "02") {
+        if (input === "Wały Piastowskie") {
+          input = "Wały Piastowskie ";
+        }
         for (let i = 0; i < stops.length; i++) {
           if (
             stops[i].stopName === input &&
