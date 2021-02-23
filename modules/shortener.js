@@ -54,6 +54,16 @@ const short = (stop) => {
     return stop;
   }
 
+  if (stop === "al. Płażyńskiego") {
+    stop = "al. Płażyń.";
+    return stop;
+  }
+
+  if (stop === "Sopot Kamienny Potok SKM") {
+    stop = "Sopot K.P. SKM";
+    return stop;
+  }
+
   if (stop.includes(" ") && stop.length > 13) {
     const words = stop.split(" ");
 
