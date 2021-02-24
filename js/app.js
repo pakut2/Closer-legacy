@@ -425,7 +425,7 @@ const app = () => {
   };
 
   //add from local to ui
-  const getTerminus = () => {
+  const getTerminus = async () => {
     let terminus;
     if (localStorage.getItem("terminus") === null) {
       terminus = [];
@@ -440,14 +440,14 @@ const app = () => {
       directions = JSON.parse(localStorage.getItem("directions"));
     }
 
+    const API_URL =
+      "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json";
+
+    let response = await fetch(API_URL);
+    let data = await response.json();
+    const { stops, stopId, stopName, stopCode, zoneId } = data;
+
     const getData = async (arg) => {
-      let API_URL =
-        "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json";
-      let response = await fetch(API_URL);
-      let data = await response.json();
-
-      const { stops, stopId, stopName, stopCode, zoneId } = data;
-
       let input = arg;
       let ID;
       let dataArr = [];
@@ -464,9 +464,9 @@ const app = () => {
         }
       }
 
-      API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
+      const ID_API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 
-      response = await fetch(API_URL);
+      response = await fetch(ID_API_URL);
       data = await response.json();
 
       const { delay, estimatedTime, routeId, headsign } = data;
