@@ -281,7 +281,7 @@ const app = () => {
       direct = JSON.parse(localStorage.getItem("direct"));
     }
 
-    direct.forEach(async (stop) => {
+    const getData = async (arg) => {
       let API_URL =
         "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json";
       let response = await fetch(API_URL);
@@ -289,7 +289,7 @@ const app = () => {
 
       const { stops, stopId, stopName, stopCode, zoneId } = data;
 
-      let input = stop;
+      let input = arg;
       let words = input.split(" ");
       let code = words[words.length - 1];
       input = "";
@@ -424,8 +424,15 @@ const app = () => {
 
       stopList.appendChild(cardDiv);
       dragAndDrop();
-    });
+    };
+
+    direct.reduce(async (prev, arg) => {
+      await prev;
+      return getData(arg);
+    }, Promise.resolve());
   };
+
+  document.addEventListener("DOMContentLoaded", getDirect);
 
   //remove from local
   const removeLocalDirect = (stop) => {
@@ -440,8 +447,6 @@ const app = () => {
     direct.splice(direct.indexOf(stopIndex), 1);
     localStorage.setItem("direct", JSON.stringify(direct));
   };
-
-  document.addEventListener("DOMContentLoaded", getDirect);
 
   //refreshes data
   const refresh = () => {

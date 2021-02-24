@@ -440,7 +440,7 @@ const app = () => {
       directions = JSON.parse(localStorage.getItem("directions"));
     }
 
-    terminus.forEach(async (stop) => {
+    const getData = async (arg) => {
       let API_URL =
         "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json";
       let response = await fetch(API_URL);
@@ -448,7 +448,7 @@ const app = () => {
 
       const { stops, stopId, stopName, stopCode, zoneId } = data;
 
-      let input = stop;
+      let input = arg;
       let ID;
       let dataArr = [];
 
@@ -586,7 +586,12 @@ const app = () => {
 
       stopList.appendChild(cardDiv);
       dragAndDrop();
-    });
+    };
+
+    terminus.reduce(async (prev, arg) => {
+      await prev;
+      return getData(arg);
+    }, Promise.resolve());
   };
 
   //remove from local
