@@ -71,17 +71,19 @@ const app = () => {
         return;
       }
 
-      for (let i = 0; i < stops.length; i++) {
+      let dataArr;
+
+      stops.filter((stop) => {
         if (
-          latinize(stops[i].stopName) === latinize(input) &&
-          stops[i].stopCode === "01" &&
-          stops[i].zoneId === 1
+          latinize(stop.stopName) === latinize(input) &&
+          stop.stopCode === "01" &&
+          stop.zoneId === 1
         ) {
-          let ID = stops[i].stopId;
-          let dataArr = [ID, stops[i].stopName];
-          return dataArr;
+          let ID = stop.stopId;
+          dataArr = [ID, stop.stopName];
         }
-      }
+      });
+      return dataArr;
     };
 
     const getTimeData = async () => {
@@ -300,15 +302,15 @@ const app = () => {
       }
 
       if (directionId === "01") {
-        for (let i = 0; i < stops.length; i++) {
+        stops.filter((stopArg) => {
           if (
-            stops[i].stopName === input &&
-            stops[i].stopCode === "02" &&
-            stops[i].zoneId === 1
+            stopArg.stopName === input &&
+            stopArg.stopCode === "02" &&
+            stopArg.zoneId === 1
           ) {
-            ID = stops[i].stopId;
+            ID = stopArg.stopId;
             stop1[3].children[1].innerText = ID;
-            dataArr = [ID, stops[i].stopName];
+            dataArr = [ID, stopArg.stopName];
             stop1[3].children[0].innerText = "02";
             stop1[3].children[0].classList.add("hidden");
             directionId = stop1[3].children[0].innerText;
@@ -316,21 +318,21 @@ const app = () => {
 
             localStorage.setItem("directions", JSON.stringify(directions));
           }
-        }
+        });
       } else if (directionId === "02") {
         if (input === "Wały Piastowskie") {
           input = "Wały Piastowskie ";
         }
-        for (let i = 0; i < stops.length; i++) {
-          if (
-            stops[i].stopName === input &&
-            stops[i].stopCode === "01" &&
-            stops[i].zoneId === 1
-          ) {
-            ID = stops[i].stopId;
 
+        stops.filter((stopArg) => {
+          if (
+            stopArg.stopName === input &&
+            stopArg.stopCode === "01" &&
+            stopArg.zoneId === 1
+          ) {
+            ID = stopArg.stopId;
             stop1[3].children[1].innerText = ID;
-            dataArr = [ID, stops[i].stopName];
+            dataArr = [ID, stopArg.stopName];
             stop1[3].children[0].innerText = "01";
             stop1[3].children[0].classList.add("hidden");
             directionId = stop1[3].children[0].innerText;
@@ -338,7 +340,7 @@ const app = () => {
 
             localStorage.setItem("directions", JSON.stringify(directions));
           }
-        }
+        });
       }
 
       API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
@@ -452,17 +454,16 @@ const app = () => {
       let ID;
       let dataArr = [];
 
-      for (let i = 0; i < stops.length; i++) {
+      stops.filter((stop) => {
         if (
-          stops[i].stopName === input &&
-          stops[i].stopCode === directions[terminus.indexOf(input)] &&
-          stops[i].zoneId === 1
+          stop.stopName === input &&
+          stop.stopCode === directions[terminus.indexOf(input)] &&
+          stop.zoneId === 1
         ) {
-          ID = stops[i].stopId;
-
-          dataArr = [ID, stops[i].stopName];
+          ID = stop.stopId;
+          dataArr = [ID, stop.stopName];
         }
-      }
+      });
 
       const ID_API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 

@@ -92,6 +92,20 @@ const app = () => {
           return dataArr;
         }
       }
+
+      let dataArr = [];
+
+      stops.filter((stop) => {
+        if (
+          latinize(stop.stopName) === latinize(input) &&
+          stop.stopCode === code &&
+          stop.zoneId === 1
+        ) {
+          let ID = stop.stopId;
+          dataArr = [ID, `${stop.stopName} ${stop.stopCode}`];
+        }
+      });
+      return dataArr;
     };
 
     const getTimeData = async () => {
@@ -302,15 +316,15 @@ const app = () => {
 
       let ID;
 
-      for (let i = 0; i < stops.length; i++) {
+      stops.filter((stop) => {
         if (
-          stops[i].stopName === input &&
-          stops[i].stopCode === code &&
-          stops[i].zoneId === 1
+          stop.stopName === input &&
+          stop.stopCode === code &&
+          stop.zoneId === 1
         ) {
-          ID = stops[i].stopId;
+          ID = stop.stopId;
         }
-      }
+      });
 
       ID_API_URL = `https://ckan2.multimediagdansk.pl/delays?stopId=${ID}`;
 

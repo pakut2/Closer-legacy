@@ -312,11 +312,13 @@ form button:hover {
   opacity: 0;
 }
 
-.offline {
+.offline,
+.location {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }
-.offline span {
+.offline span,
+.location span {
   display: flex;
   justify-content: center;
   align-content: center;

@@ -1,4 +1,5 @@
 const prompt = document.querySelector(".offline");
+const userLocation = document.querySelector(".location");
 
 window.addEventListener("load", () => {
   const handleConnection = () => {
@@ -62,21 +63,21 @@ const successCallback = (position) => {
     let array = [];
     let dataArr = [];
 
-    for (let i = 0; i < stops.length; i++) {
-      const distance = calDist(lat1, lon1, stops[i].stopLat, stops[i].stopLon);
+    stops.filter((stop) => {
+      const distance = calDist(lat1, lon1, stop.stopLat, stop.stopLon);
       if (distance <= 500) {
-        let ID = stops[i].stopId;
-        // dataArr = [ID, stops[i].stopName];
+        let ID = stop.stopId;
+
         dataArr.push(Math.round(distance));
         dataArr.push(ID);
-        dataArr.push(stops[i].stopName);
-        dataArr.push(stops[i].stopLon);
-        dataArr.push(stops[i].stopLat);
-        dataArr.push(stops[i].stopCode);
+        dataArr.push(stop.stopName);
+        dataArr.push(stop.stopLon);
+        dataArr.push(stop.stopLat);
+        dataArr.push(stop.stopCode);
         array.push(dataArr);
         dataArr = [];
       }
-    }
+    });
     return array;
   };
 
@@ -90,6 +91,12 @@ const successCallback = (position) => {
 
   const getTimeData = async () => {
     const array = await getIdData();
+
+    if (array.length === 0) {
+      userLocation.classList.remove("indicator");
+      return;
+    }
+
     //console.log(array.sort(sortFunction));
     array.sort(sortFunction);
 
@@ -212,10 +219,10 @@ const successCallback = (position) => {
     }
   };
 
-  getTimeData().catch((error) => {
-    console.error();
-  });
-  // getTimeData();
+  // getTimeData().catch((error) => {
+  //   console.error();
+  // });
+  getTimeData();
 
   //get vehicle ids
   const getVehicleCodes = async (ID) => {
@@ -385,7 +392,7 @@ const successCallback = (position) => {
           marker.remove();
         });
 
-        geojson.features.forEach(function (marker) {
+        geojson.features.forEach((marker) => {
           const element = document.createElement("div");
           element.innerHTML = '<i class="fas fa-bus"></i>';
           element.className = "marker";
@@ -453,6 +460,7 @@ const successCallback = (position) => {
 
 const errorCallback = (error) => {
   console.log(error.message);
+  userLocation.classList.remove("indicator");
 };
 
 const app = () => {
