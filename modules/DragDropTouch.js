@@ -1,16 +1,6 @@
 var DragDropTouch;
 (function (DragDropTouch_1) {
   "use strict";
-  /**
-   * Object used to hold the data that is being dragged during drag and drop operations.
-   *
-   * It may hold one or more data items of different types. For more information about
-   * drag and drop operations and data transfer objects, see
-   * <a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer">HTML Drag and Drop API</a>.
-   *
-   * This object is created automatically by the @see:DragDropTouch singleton and is
-   * accessible through the @see:dataTransfer property of all drag events.
-   */
   var DataTransfer = (function () {
     function DataTransfer() {
       this._dropEffect = "move";
